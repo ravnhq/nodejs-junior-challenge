@@ -1,0 +1,15 @@
+{
+  "name": "nodejs-junior-challenge",
+  "version": "1.0.0",
+  "main": "challenges.js",
+  "repository": "https://github.com/ravnhq/nodejs-junior-challenge.git",
+  "author": "Ravn Development",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "jest": "^27.0.6"
+  }
+}

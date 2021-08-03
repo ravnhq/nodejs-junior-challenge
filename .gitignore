@@ -1,0 +1,13 @@
+# Node
+node_modules/
+
+# Testing
+coverage/
+.env
+
+# IDE
+.idea/
+.history/
+
+# OS
+.DS_Store
