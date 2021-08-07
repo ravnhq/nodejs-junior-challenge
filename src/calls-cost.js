@@ -7,7 +7,8 @@ International: first 3 minutes $ 7.56 -> $ 3.03 for each additional minute
 National: first 3 minutes $ 1.20 -> $ 0.48 per additional minute
 Local: $ 0.2 per minute.
 
-The function must return the total calls, the details of each call (the detail received + the cost of the call) and the total to pay taking into account all calls
+The function must return the total calls, the details of each call (the detail received + the cost of the call) and the total to pay 
+taking into account all calls
 */
 
 

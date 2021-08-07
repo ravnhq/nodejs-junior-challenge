@@ -36,6 +36,4 @@ const calls = [
   },
 ]
 
-module.exports = {
-  calls,
-};
+module.exports = { calls }
