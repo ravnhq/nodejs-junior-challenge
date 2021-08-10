@@ -31,6 +31,4 @@ const fibonacciSerie = [
   514229,
 ];
 
-module.exports = {
-  fibonacciSerie,
-};
+module.exports = { fibonacciSerie }
