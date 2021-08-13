@@ -94,6 +94,4 @@ function morseCode(message, convertTo) {
   throw new Error('Option not recognized');
 }
 
-morseCode('.... . .-.. .-.. --- --..--', 'english');
-
 module.exports = morseCode;
