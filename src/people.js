@@ -15,17 +15,47 @@
  * @property {Person} tallerPerson - Taller person information
  */
 
-/** 
+/**
  * The height in cm of several people was taken, in addition, the age of each person and extra information are also known.
- * An algorithm is required to calculate average age and average height. In addition, we need to know the information of the 
+ * An algorithm is required to calculate average age and average height. In addition, we need to know the information of the
  * tallest person, and the information of the youngest person.
- * 
+ *
  * @param {Person[]} people - People information to be processed
- * 
+ *
  * @returns {PeopleResponse}  - Processed information
-*/
+ */
 
+function peopleInformation(people) {
+  const peopleResponse = {
+    youngerPerson: people[0],
+    tallerPerson: people[0],
+    ageProm: 0,
+    heightProm: 0,
+  };
+  let count = 0;
+  let sumAge = 0;
+  let sumHeight = 0;
 
-function peopleInformation(people) { }
+  people.forEach((person) => {
+    // who's younger
+    if (peopleResponse.youngerPerson.age > person.age) {
+      peopleResponse.youngerPerson = person;
+    }
 
-module.exports = peopleInformation
+    // who's taller
+    if (peopleResponse.tallerPerson.height < person.height) {
+      peopleResponse.tallerPerson = person;
+    }
+
+    sumAge += person.age;
+    sumHeight += person.height;
+    count += 1;
+  });
+
+  peopleResponse.ageProm = Math.round(sumAge / count);
+  peopleResponse.heightProm = Math.round(sumHeight / count);
+
+  return peopleResponse;
+}
+
+module.exports = peopleInformation;
