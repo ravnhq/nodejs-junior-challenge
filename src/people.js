@@ -26,6 +26,26 @@
 */
 
 
-function peopleInformation(people) { }
+function peopleInformation(people) {
+    const totalPeople = people.length;
+    const peopleResponse = {
+        ageProm: people[0].age,
+        heightProm: people[0].height,
+        youngerPerson: people[0],
+        tallerPerson: people[0]
+    }
+
+    for (let i = 1; i < totalPeople; i++) {
+        peopleResponse.ageProm += people[i].age;
+        peopleResponse.heightProm += people[i].height;
+        peopleResponse.youngerPerson = people[i].age < peopleResponse.youngerPerson.age ? people[i] : peopleResponse.youngerPerson;
+        peopleResponse.tallerPerson = people[i].height > peopleResponse.tallerPerson.height ? people[i] : peopleResponse.tallerPerson;
+    }
+
+    peopleResponse.ageProm = Math.round(peopleResponse.ageProm / totalPeople);
+    peopleResponse.heightProm = Math.round(peopleResponse.heightProm / totalPeople);
+
+    return peopleResponse;
+}
 
 module.exports = peopleInformation
