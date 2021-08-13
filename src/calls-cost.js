@@ -38,6 +38,38 @@
  * @returns {CallsResponse}  - Processed information
 */
 
-function callsCost(calls) { }
+function callsCost(calls) {
+    const typeCalls = [
+        {type: 'International', hasFirst: true, first: 7.56, regular: 3.03}
+        ,{type: 'National', hasFirst: true, first: 1.20, regular: 0.48}
+        ,{type: 'Local', hasFirst: false, first: null, regular: 0.20}
+    ];
+    
+    const callFilters = calls.filter((call) => typeCalls.some((typeCall) => typeCall.type == call.type))
+    const calculateCallCost = (call, typeCall) => {
+        const firstMinutes = 3;
+        let processedCall = {...call, callCost: 0};
+
+        if (!typeCall.hasFirst) {
+            processedCall.callCost = processedCall.duration * typeCall.regular;
+        } else if (call.duration > firstMinutes) {
+            processedCall.callCost = typeCall.first * firstMinutes + (processedCall.duration - firstMinutes) * typeCall.regular;
+        } else {
+            processedCall.callCost = typeCall.first * call.duration;
+        }
+
+        return processedCall;
+    }
+
+    const totalCalls = callFilters.length;
+    const processedCalls = callFilters.map((call) => {
+            const typeCall = typeCalls.find((typeCall) => typeCall.type === call.type)
+            return calculateCallCost(call, typeCall);
+        })
+    const totalWithoutTruncate = processedCalls.reduce((total, processedCall) => total + processedCall.callCost,0);
+    const totalTruncate = parseFloat(totalWithoutTruncate.toFixed(2));
+
+    return {totalCalls: totalCalls, total: totalTruncate, callsDetails: processedCalls}
+}
 
 module.exports = callsCost
