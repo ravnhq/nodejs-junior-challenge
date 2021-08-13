@@ -19,6 +19,23 @@
  * @returns {string}  - Formatted string covering the template
 */
 
-function template(template, character, message) { }
+function template(template, character, message) {
+    let output = '';
+    let indexMessage = 0;
+
+    if (!template.includes(character) || message === '') {
+        return 'Invalid parameters'
+    }
+
+    for (let i = 0; i < template.length; i++) {
+        if (template[i] === character && indexMessage < message.length) {
+            output += message[indexMessage];
+            indexMessage++;
+        } else {
+            output += template[i];
+        }
+    }
+    return output;
+}
 
 module.exports = template
