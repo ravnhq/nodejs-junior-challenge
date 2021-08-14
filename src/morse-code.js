@@ -8,6 +8,35 @@
  * @returns {string}  - String converted to english or morse code
  */
 
+function morseCode(message, convertTo) {
+  const words = message.split('   ');
+  const trad = [];
+  let separator = '';
+  let glue = ' ';
+  let code = Object.keys(morse);
+  let decode = Object.values(morse);
+
+  if (convertTo === 'english') {
+    [code, decode] = [decode, code];
+    separator = ' ';
+    glue = '';
+  }
+
+  words.forEach((word) => {
+    trad.push(...getDecode(word.split(separator), code, decode));
+    trad.push(' ');
+  });
+
+  return trad.join(glue).trim();
+}
+
+function getDecode(arr, code, decode) {
+  return arr.map((item) => {
+    const index = code.indexOf(item.toUpperCase());
+    return decode[index];
+  });
+}
+
 const morse = {
   0: '-----',
   1: '.----',
@@ -57,38 +86,5 @@ const morse = {
   ')': '-.--.-',
   ' ': ' ',
 };
-
-function morseCode(message, convertTo) {
-  const words = message.split('   ');
-  const trad = [];
-  let separator = '';
-  let glue = ' ';
-  let code = Object.keys(morse);
-  let decode = Object.values(morse);
-
-  if (convertTo === 'english') {
-    [code, decode] = [decode, code];
-    separator = ' ';
-    glue = '';
-  }
-
-  words.forEach((word) => {
-    trad.push(...getDecode(word.split(separator), code, decode));
-    trad.push(' ');
-  });
-
-  return trad.join(glue).trim();
-}
-
-function getDecode(arr, code, decode) {
-  const arrDecode = [];
-  arr.forEach((item) => {
-    const index = code.indexOf(item.toUpperCase());
-    arrDecode.push(decode[index]);
-  });
-
-  return arrDecode;
-}
-
 
 module.exports = morseCode;

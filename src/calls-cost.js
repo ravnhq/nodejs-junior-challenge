@@ -38,6 +38,22 @@
  * @returns {CallsResponse}  - Processed information
  */
 
+function callsCost(calls) {
+  const callsResponse = new CallsResponse();
+
+  calls.forEach((call) => {
+    const processedCall = new ProcessedCall(call);
+
+    if (processedCall.callCost === 0) return;
+
+    callsResponse.addCall(processedCall);
+  });
+
+  callsResponse.fixedTotal();
+
+  return callsResponse;
+}
+
 const COSTS = {
   international: {
     cost: 7.56,
@@ -76,7 +92,7 @@ class CallsResponse {
 }
 
 class ProcessedCall {
-  constructor(identifier, type, duration) {
+  constructor({ identifier, type, duration }) {
     this.identifier = identifier;
     this.type = type;
     this.duration = duration;
@@ -86,36 +102,17 @@ class ProcessedCall {
       let total = 0;
 
       if (costType === undefined) return 0;
+
       if (duration < costType.limit) {
         total = costType.cost * duration;
-        return total;
+      } else {
+        total = costType.cost * costType.limit;
+        total += (duration - costType.limit) * costType.addPerMin;
       }
-
-      total = costType.cost * costType.limit;
-      total += (duration - costType.limit) * costType.addPerMin;
 
       return total;
     })();
   }
-}
-
-function callsCost(calls) {
-  const callsResponse = new CallsResponse();
-
-  calls.forEach((call) => {
-    const processedCall = new ProcessedCall(
-      call.identifier,
-      call.type,
-      call.duration
-    );
-    if (processedCall.callCost !== 0) {
-      callsResponse.addCall(processedCall);
-    }
-  });
-
-  callsResponse.fixedTotal();
-
-  return callsResponse;
 }
 
 module.exports = callsCost;

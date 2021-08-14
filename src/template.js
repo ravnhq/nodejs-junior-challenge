@@ -25,9 +25,7 @@ function template(template, character, message) {
   if (!regex.test(template) || message === '') return 'Invalid parameters';
 
   const messageAr = [...message];
-  const replacer = (match) => {
-    return messageAr.shift() || match;
-  };
+  const replacer = (match) => messageAr.shift() || match;
 
   return template.replace(regex, replacer);
 }

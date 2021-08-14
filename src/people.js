@@ -25,7 +25,23 @@
  * @returns {PeopleResponse}  - Processed information
  */
 
-//const { people } = require('../mocks/people.mocks');
+function peopleInformation(people) {
+  const peopleRes = new PeopleResponse();
+
+  people.forEach((item) => {
+    const person = new Person(item);
+
+    peopleRes.addCount(person);
+
+    peopleRes.tallerPerson = person.getTaller(peopleRes.tallerPerson);
+    peopleRes.youngerPerson = person.getYounger(peopleRes.youngerPerson);
+  });
+
+  peopleRes.calcProms();
+
+  return peopleRes;
+}
+
 class Person {
   constructor({ name, lastname, age, weight, height }) {
     this.name = name;
@@ -64,30 +80,11 @@ class PeopleResponse {
   }
 
   calcProms() {
+    const prom = (total, n) => Math.round(total / n);
+
     this.ageProm = prom(this.ageSum, this.count);
     this.heightProm = prom(this.heightSum, this.count);
-
-    function prom(total, n) {
-      return Math.round(total / n);
-    }
   }
-}
-
-function peopleInformation(people) {
-  const peopleRes = new PeopleResponse();
-
-  people.forEach((item) => {
-    const person = new Person(item);
-
-    peopleRes.addCount(person);
-
-    peopleRes.tallerPerson = person.getTaller(peopleRes.tallerPerson);
-    peopleRes.youngerPerson = person.getYounger(peopleRes.youngerPerson);
-  });
-
-  peopleRes.calcProms();
-
-  return peopleRes;
 }
 
 module.exports = peopleInformation;
