@@ -25,7 +25,26 @@
  * @returns {PeopleResponse}  - Processed information
 */
 
-
-function peopleInformation(people) { }
+function peopleInformation(people) {
+  const ageProm = Math.round(
+    people.reduce((accum, current) => accum + current.age, 0) / people.length
+  );
+  const heightProm = Math.round(
+    people.reduce((accum, current) => accum + current.height, 0) / people.length
+  );
+  const youngerPerson = people.reduce(
+    (accum, current) => accum.age < current.age ? accum : current, +Infinity
+  );
+  const tallerPerson = people.reduce(
+    (accum, current) => accum.height > current.height? accum : current, -Infinity
+  );
+  
+  return {
+    ageProm: ageProm,
+    heightProm: heightProm,
+    youngerPerson: youngerPerson,
+    tallerPerson: tallerPerson
+  }
+}
 
 module.exports = peopleInformation
