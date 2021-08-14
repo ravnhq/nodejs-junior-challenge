@@ -38,6 +38,57 @@
  * @returns {CallsResponse}  - Processed information
 */
 
-function callsCost(calls) { }
+function callsCost(calls) {
+    const calculateCallCost = (duration, firstMinutes, costByEachFirstMinute, costByAdditionalMinute) => {
+        const additionalMinutes = duration - firstMinutes;
+
+        if (duration > firstMinutes) {
+            return (firstMinutes * costByEachFirstMinute) + (additionalMinutes * costByAdditionalMinute);
+        } else {
+            return duration * costByEachFirstMinute;
+        }
+    }
+
+    const callsDetails = [];
+    let total = 0;
+
+    calls.forEach(call => {
+        switch (call.type) {
+            case 'International': {
+                const firstMinutes = 3;
+                const costByEachFirstMinute = 7.56;
+                const costByAdditionalMinute = 3.03;
+                const callCost = calculateCallCost(call.duration, firstMinutes, costByEachFirstMinute, costByAdditionalMinute);
+                total += callCost;
+                callsDetails.push({ ...call, callCost });
+                break;
+            }
+            case 'National': {
+                const firstMinutes = 3;
+                const costByEachFirstMinute = 1.20;
+                const costByAdditionalMinute = 0.48;
+                const callCost = calculateCallCost(call.duration, firstMinutes, costByEachFirstMinute, costByAdditionalMinute);
+                total += callCost;
+                callsDetails.push({ ...call, callCost });
+                break;
+            }
+            case 'Local': {
+                const costByMinute = 0.2;
+                const callCost = call.duration * costByMinute;
+                total += callCost;
+                callsDetails.push({ ...call, callCost });
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    });
+
+    total = Math.round(total * 100) / 100;
+    const callsResponse = { totalCalls: callsDetails.length, total, callsDetails };
+
+    return callsResponse;
+}
 
 module.exports = callsCost
