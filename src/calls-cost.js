@@ -38,6 +38,55 @@
  * @returns {CallsResponse}  - Processed information
 */
 
-function callsCost(calls) { }
+function callsCost(calls) {
+
+  const filteredCalls = calls.filter((call) => call.type !== 'Intern');
+
+  let totalCost = 0;
+  for (let call of filteredCalls) {
+
+    let callCost = 0;
+    let additionalCost = 0;
+    let extraDuration = 0 ;
+
+    if (call.type == 'National') {
+      if (call.duration > 3) {
+        callCost = 3 * 1.2;
+        extraDuration = call.duration - 3;
+        additionalCost = extraDuration * 0.48;
+        callCost += additionalCost ;
+        call.callCost = callCost;
+      } else {
+        callCost = (call.duration * 1.2).toFixed(2);
+        callCost = Number(callCost);
+        call.callCost = callCost;
+      }
+    } else if (call.type == 'International') {
+        if (call.duration > 3) {
+          callCost = 3 * 7.56;
+          extraDuration = call.duration - 3;
+          additionalCost = extraDuration * 3.03;
+          callCost += additionalCost;
+          call.callCost = callCost;
+        } else {
+          callCost = (call.duration * 7.56).toFixed(2);
+          callCost = Number(callCost);
+          call.callCost = callCost;
+        }
+    } else if (call.type == 'Local') {
+      callCost = call.duration * 0.2;
+      call.callCost = callCost;
+    }
+    totalCost = totalCost + callCost;
+    totalCost = totalCost.toFixed(2);
+    totalCost = Number(totalCost);
+  }
+
+  return {
+    callsDetails: filteredCalls,
+    total: totalCost,
+    totalCalls: filteredCalls.length,
+  };
+}
 
 module.exports = callsCost
