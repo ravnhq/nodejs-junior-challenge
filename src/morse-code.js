@@ -94,8 +94,7 @@ function morseCode(message, convertTo) {
       return morseCode[letter.toUpperCase()];
     });
     result = converTedMsg.join(' ');
-  }
-  if (convertTo.toUpperCase() === 'ENGLISH') {
+  } else if (convertTo.toUpperCase() === 'ENGLISH') {
     const splittedMorsebyWord = message.split('  ');
     const convertedToEnglish = splittedMorsebyWord.map((word) => {
       const splittedWordByCode = word.split(' ');
