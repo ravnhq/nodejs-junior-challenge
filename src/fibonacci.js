@@ -7,16 +7,18 @@
  */
 
 function fibonacci(limit) {
-  let prevNum = 0,
-    currentNum = 1,
-    fibonacci = [];
+  let numbersToGenerate = limit,
+    prevNum = 0,
+    currentNum = 1;
 
-  while (limit > 0) {
+  const fibonacci = [];
+
+  while (numbersToGenerate > 0) {
     fibonacci.push(prevNum);
     let temp = prevNum;
     prevNum = currentNum;
     currentNum = temp + prevNum;
-    limit--;
+    numbersToGenerate--;
   }
 
   return fibonacci;
