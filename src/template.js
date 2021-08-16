@@ -19,6 +19,27 @@
  * @returns {string}  - Formatted string covering the template
 */
 
-function template(template, character, message) { }
+function template(template, character, message) {
+
+  let messageArray = [];
+  let newMessage = [];
+
+   if (!template.includes(character) || !message ) {
+    return 'Invalid parameters';
+   } else {
+     for (let char of message){
+      messageArray.push(char);
+     }
+     for (let char of template){
+       if (char == character && messageArray.length > 0){
+        newMessage.push(messageArray.shift())
+        } else {
+         newMessage.push(char);
+       }
+     }
+   }
+   
+   return newMessage.join('');
+  }
 
 module.exports = template
