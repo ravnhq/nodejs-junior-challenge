@@ -20,24 +20,55 @@
  * @property {ProcessedCall[]} callsDetails - Processed information about calls
  */
 
-/** 
- * Design a solution to calculate what to pay for a set of phone calls. The function must receive an array of objects that will contain 
+/**
+ * Design a solution to calculate what to pay for a set of phone calls. The function must receive an array of objects that will contain
  * the identifier, type and duration attributes. For the type attribute, the only valid values are: National, International and Local
- * 
+ *
  * The criteria for calculating the cost of each call is as follows:
- * 
+ *
  * International: first 3 minutes $ 7.56 -> $ 3.03 for each additional minute
  * National: first 3 minutes $ 1.20 -> $ 0.48 per additional minute
  * Local: $ 0.2 per minute.
- * 
- * The function must return the total calls, the details of each call (the detail received + the cost of the call) and the total to pay 
+ *
+ * The function must return the total calls, the details of each call (the detail received + the cost of the call) and the total to pay
  * taking into account all calls
- * 
+ *
  * @param {Call[]} calls - Call's information to be processed
- * 
+ *
  * @returns {CallsResponse}  - Processed information
-*/
+ */
 
-function callsCost(calls) { }
+function callsCost(calls) {
+  const filteredCalls = calls.filter((call) => call.type !== 'Intern');
 
-module.exports = callsCost
+  const detailedCalls = filteredCalls.map((call) => {
+    const { type, duration } = call;
+    const callDuration = duration < 3 ? duration : 3;
+    const additionalMinutes = duration > 3 && duration - 3;
+    let callCost = 0;
+
+    if (type === 'International') {
+      callCost = callDuration * 7.56 + additionalMinutes * 3.03;
+
+      return { ...call, callCost: +callCost.toFixed(2) };
+    } else if (type === 'National') {
+      callCost = callDuration * 1.2 + additionalMinutes * 0.48;
+
+      return { ...call, callCost: +callCost.toFixed(2) };
+    } else if (type === 'Local') {
+      callCost = duration * 0.2;
+
+      return { ...call, callCost: +callCost.toFixed(2) };
+    } else return call;
+  });
+
+  const total = detailedCalls.reduce((total, call) => total + call.callCost, 0);
+
+  return {
+    callsDetails: detailedCalls,
+    total: +total.toFixed(2),
+    totalCalls: filteredCalls.length,
+  };
+}
+
+module.exports = callsCost;
