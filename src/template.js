@@ -26,17 +26,19 @@ function template(templateString, character, message) {
   let messagei = 0;
   let result = '';
 
-  if (!templateString.includes(character) || message === '') {
+  if (!templateString.includes(character) || !message) {
     return 'Invalid parameters';
   }
 
-  for (; templatei < templateString.length; templatei += 1) {
+  while (templatei < templateString.length) {
     if (templateString[templatei] === character && messagei < message.length) {
       result += message[messagei];
       messagei += 1;
     } else {
       result += templateString[templatei];
     }
+
+    templatei += 1;
   }
 
   return result;

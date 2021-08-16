@@ -51,6 +51,7 @@ function calculateCallCost(duration, firstMinutesCost, additionalMinutesCost = f
   } else {
     callCost += duration * firstMinutesCost;
   }
+
   callCost += remainingMinutes * additionalMinutesCost;
 
   return Math.round(callCost * 100) / 100;
@@ -65,6 +66,7 @@ function callsCost(calls) {
       ...call,
       callCost: 0,
     };
+
     switch (call.type) {
       case 'International': {
         processedCall.callCost = calculateCallCost(call.duration, 7.56, 3.03);
@@ -82,10 +84,12 @@ function callsCost(calls) {
         return;
       }
     }
+
     total += processedCall.callCost;
     totalCalls += 1;
     callsDetails.push(processedCall);
   });
+
   const callsResponse = {
     totalCalls,
     total: Math.round(total * 100) / 100,

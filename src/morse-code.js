@@ -10,6 +10,7 @@
 */
 
 function morseCode(message, convertTo) {
+  const convertedWord = [];
   const codes = {
     '.-': 'A',
     '-...': 'B',
@@ -55,25 +56,31 @@ function morseCode(message, convertTo) {
     '-....-': '-',
     '-..-.': '/',
   };
-  const invertedCodes = {};
-  Object.keys(codes).forEach((key) => {
-    invertedCodes[codes[key]] = key;
-  });
-  const convertedWord = [];
+
+  const invertedCodes = Object.keys(codes).reduce((invertedAcc, key) => {
+    const tempInverted = { ...invertedAcc };
+    tempInverted[codes[key]] = key;
+    return tempInverted;
+  }, {});
+
   if (convertTo === 'english') {
     const words = message.split('   ');
+
     words.forEach((word) => {
       word.split(' ').forEach((letter) => {
         convertedWord.push(codes[letter]);
       });
+
       convertedWord.push(' ');
     });
   } else {
     const words = message.toUpperCase().split(' ');
+
     words.forEach((word) => {
       word.split('').forEach((letter) => {
         convertedWord.push(`${invertedCodes[letter]} `);
       });
+
       convertedWord.push('  ');
     });
   }

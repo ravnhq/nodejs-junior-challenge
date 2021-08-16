@@ -33,20 +33,25 @@ function peopleInformation(people) {
     youngerPerson: people[0],
     tallerPerson: people[0],
   };
+
   people.forEach((person) => {
     peopleResponse.ageProm += person.age;
     peopleResponse.heightProm += person.height;
+
     if (peopleResponse.youngerPerson.age > person.age) {
       peopleResponse.youngerPerson = person;
     }
+
     if (peopleResponse.tallerPerson.height < person.height) {
       peopleResponse.tallerPerson = person;
     }
   });
+
   peopleResponse.ageProm /= people.length;
   peopleResponse.ageProm = Math.round(peopleResponse.ageProm);
   peopleResponse.heightProm /= people.length;
   peopleResponse.heightProm = Math.round(peopleResponse.heightProm);
+
   return peopleResponse;
 }
 
