@@ -35,6 +35,7 @@ function template(template, character, message) {
             output += template[i];
         }
     }
+    
     return output;
 }
 
