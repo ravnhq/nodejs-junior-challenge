@@ -24,10 +24,21 @@ function template(template, character, message) {
 
   if (!regex.test(template) || message === '') return 'Invalid parameters';
 
-  const messageAr = [...message];
-  const replacer = (match) => messageAr.shift() || match;
+  const iterator = iterateMessage(...message);
+  
+  return template.replace(regex, replacer(iterator));
+}
 
-  return template.replace(regex, replacer);
+function* iterateMessage(...localMessage) {
+  yield* localMessage;
+}
+
+function replacer(iterator) {
+  return function (match) {
+    const nextChar = iterator.next();
+
+    return nextChar.done ? match : nextChar.value;
+  };
 }
 
 module.exports = template;
