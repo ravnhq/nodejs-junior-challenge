@@ -26,6 +26,34 @@
 */
 
 
-function peopleInformation(people) { }
+function peopleInformation(people) {
+
+  let ageSum = 0;
+  let ageAvg = 0;
+  let heightSum = 0;
+  let heightAvg = 0;
+  let tallerPerson = 0;
+  let youngerPerson = 99;
+  let tallerPersonInfo = {};
+  let youngerPersonInfo = {};
+
+  for (let info of people){
+    ageSum += info.age;
+    ageAvg = Math.round(ageSum / people.length);
+    heightSum += info.height;
+    heightAvg = Math.round(heightSum / people.length);
+    info.age > youngerPerson ? info.age : youngerPerson = info.age;
+    info.height < tallerPerson ? info.height : tallerPerson = info.height;
+    info.age == youngerPerson ? youngerPersonInfo = info : youngerPerson;
+    info.height == tallerPerson ? tallerPersonInfo = info : tallerPerson;
+  };
+
+  return {
+    ageProm : ageAvg,
+    heightProm : heightAvg,
+    youngerPerson : youngerPersonInfo,
+    tallerPerson : tallerPersonInfo
+  }
+}
 
 module.exports = peopleInformation
