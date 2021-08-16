@@ -26,10 +26,10 @@
  */
 
 function peopleInformation(people) {
-  const heightProm = Math.floor(
+  const heightProm = Math.round(
     people.reduce((acc, person) => acc + person.height, 0) / people.length,
   );
-  const ageProm = Math.floor(
+  const ageProm = Math.round(
     people.reduce((acc, person) => acc + person.age, 0) / people.length,
   );
 
