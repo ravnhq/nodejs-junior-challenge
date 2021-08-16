@@ -47,19 +47,25 @@ function callsCost(calls) {
     const additionalMinutes = duration > 3 && duration - 3;
     let callCost = 0;
 
-    if (type === 'International') {
-      callCost = callDuration * 7.56 + additionalMinutes * 3.03;
+    switch (type) {
+      case 'International':
+        callCost = callDuration * 7.56 + additionalMinutes * 3.03;
 
-      return { ...call, callCost: +callCost.toFixed(2) };
-    } else if (type === 'National') {
-      callCost = callDuration * 1.2 + additionalMinutes * 0.48;
+        return { ...call, callCost: +callCost.toFixed(2) };
 
-      return { ...call, callCost: +callCost.toFixed(2) };
-    } else if (type === 'Local') {
-      callCost = duration * 0.2;
+      case 'National':
+        callCost = callDuration * 1.2 + additionalMinutes * 0.48;
 
-      return { ...call, callCost: +callCost.toFixed(2) };
-    } else return call;
+        return { ...call, callCost: +callCost.toFixed(2) };
+
+      case 'Local':
+        callCost = duration * 0.2;
+
+        return { ...call, callCost: +callCost.toFixed(2) };
+
+      default:
+        return call;
+    }
   });
 
   const total = detailedCalls.reduce((total, call) => total + call.callCost, 0);
