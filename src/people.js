@@ -31,7 +31,7 @@ function peopleInformation(people) {
   let heightSum = 0;
   let youngerPerson = people[0];
   let tallerPerson = people[0];
-  let PeopleResponse = {};
+  const PeopleResponse = {};
 
   people.forEach((person) => {
     if (person.age < youngerPerson.age) {
