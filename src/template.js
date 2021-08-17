@@ -20,7 +20,7 @@
  */
 
 function template(template, character, message) {
-  if (template.indexOf(character) === -1 || !message) {
+  if (!message || (template.indexOf(character) === -1)) {
     return 'Invalid parameters';
   }
 
