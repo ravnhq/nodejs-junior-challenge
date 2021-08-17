@@ -26,32 +26,33 @@
  */
 
 function peopleInformation(people) {
-  const youngerPerson = people[0];
-  const tallerPerson = people[0];
-  const peopleResponse = {
-    ageProm: 0,
-    heightProm: 0,
-    youngerPerson: youngerPerson,
-    tallerPerson: tallerPerson,
-  };
+  let ageSum = 0;
+  let sumPerson = 0;
+  let heightSum = 0;
+  let youngerPerson = people[0];
+  let tallerPerson = people[0];
+  let PeopleResponse = {};
 
   people.forEach((person) => {
-    if (peopleResponse.youngerPerson.age > person.age) {
-      peopleResponse.youngerPerson = person;
+    if (person.age < youngerPerson.age) {
+      youngerPerson = person;
     }
-    if (peopleResponse.tallerPerson.height < person.height) {
-      peopleResponse.tallerPerson = person;
+    if (person.height > tallerPerson.height) {
+      tallerPerson = person;
     }
-    peopleResponse.ageProm += person.age;
-    peopleResponse.heightProm += person.height;
+    ageSum += person.age;
+    heightSum += person.height;
+    sumPerson += 1;
   });
 
-  peopleResponse.ageProm = Math.round(peopleResponse.ageProm / people.length);
-  peopleResponse.heightProm = Math.round(
-    peopleResponse.heightProm / people.length
-  );
+  ageSum = Math.round(ageSum / sumPerson);
+  heightSum = Math.round(heightSum / sumPerson);
+  PeopleResponse.ageProm = ageSum;
+  PeopleResponse.heightProm = heightSum;
+  PeopleResponse.youngerPerson = youngerPerson;
+  PeopleResponse.tallerPerson = tallerPerson;
 
-  return peopleResponse;
+  return PeopleResponse;
 }
 
 module.exports = peopleInformation;
