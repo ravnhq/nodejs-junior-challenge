@@ -17,14 +17,10 @@
  * @param {string} message - String to be placed on the template
  *
  * @returns {string}  - Formatted string covering the template
-*/
+ */
 
 function template(template, character, message) {
-  if (
-    (template.indexOf(character) === -1)
-        || (message === '')
-        || (message === undefined)
-  ) {
+  if (template.indexOf(character) === -1 || !message) {
     return 'Invalid parameters';
   }
 

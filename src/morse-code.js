@@ -56,22 +56,15 @@ function morseCode(message, convertTo) {
     '-': '-....-',
     '/': '-..-.',
   };
+  const newMessage = message.toUpperCase();
+  let result = '';
 
-  function toMorse(phrase) {
-    const newMessage = phrase.toUpperCase();
-    let result = '';
-
+  if (convertTo === 'morse') {
     for (let i = 0; i < newMessage.length; i += 1) {
       result += `${morse[newMessage[i]]} `;
     }
-
-    return result.trim();
-  }
-
-  function toEnglish(phrase) {
-    let result = '';
-
-    phrase
+  } else if (convertTo === 'english') {
+    newMessage
       .split('   ')
       .map((word) => word.split(' '))
       .forEach((codeWord) => {
@@ -80,18 +73,12 @@ function morseCode(message, convertTo) {
         });
         result += ' ';
       });
+  } else {
 
-    return result.trim();
+    throw new Error('Option not recognized');
   }
 
-  if (convertTo === 'morse') {
-    return toMorse(message);
-  }
-  if (convertTo === 'english') {
-    return toEnglish(message);
-  }
-
-  throw new Error('Option not recognized');
+  return result.trim();
 }
 
 module.exports = morseCode;

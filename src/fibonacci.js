@@ -10,9 +10,10 @@ function fibonacci(limit) {
   let first = 0;
   let second = 1;
   let current = 0;
+  const maxLimit = limit;
   const fibo = [first, second];
 
-  for (let i = 0; i < limit - 2; i += 1) {
+  for (let i = 0; i < maxLimit - 2; i += 1) {
     current = first + second;
     first = second;
     second = current;
