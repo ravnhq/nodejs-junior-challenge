@@ -33,6 +33,7 @@ function morseCode(message, convertTo) {
 function getDecode(arr, code, decode) {
   return arr.map((item) => {
     const index = code.indexOf(item.toUpperCase());
+
     return decode[index];
   });
 }

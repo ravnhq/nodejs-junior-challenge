@@ -8,11 +8,12 @@
 
 function fibonacci(limit) {
   const FIB = [0, 1];
+
   for (let i = 2; i < limit; i++) {
-    const num = FIB[i - 1] + FIB[i - 2];
-    FIB.push(num);
+    FIB.push(FIB[i - 1] + FIB[i - 2]);
   }
-  return FIB.splice(0, limit);
+
+  return FIB;
 }
 
 module.exports = fibonacci;

@@ -38,22 +38,6 @@
  * @returns {CallsResponse}  - Processed information
  */
 
-function callsCost(calls) {
-  const callsResponse = new CallsResponse();
-
-  calls.forEach((call) => {
-    const processedCall = new ProcessedCall(call);
-
-    if (processedCall.callCost === 0) return;
-
-    callsResponse.addCall(processedCall);
-  });
-
-  callsResponse.fixedTotal();
-
-  return callsResponse;
-}
-
 const COSTS = {
   international: {
     cost: 7.56,
@@ -72,47 +56,42 @@ const COSTS = {
   },
 };
 
-class CallsResponse {
-  constructor() {
-    this.callsDetails = [];
-    this.total = 0;
-    this.totalCalls = 0;
-  }
+function callsCost(calls) {
+  const callsDetails = [];
+  let total = 0;
+  let totalCalls = 0;
 
-  addCall(processedCall) {
-    this.callsDetails.push(processedCall);
+  calls.forEach((call) => {
+    const { duration, type, identifier } = call;
+    const costType = COSTS[type.toLowerCase()];
+    let callCost = 0;
 
-    this.total += processedCall.callCost;
-    this.totalCalls += 1;
-  }
+    if (!costType) return;
 
-  fixedTotal() {
-    this.total = Number(this.total.toFixed(2));
-  }
-}
+    if (duration < costType.limit) {
+      callCost = costType.cost * duration;
+    } else {
+      const baseCost = costType.cost * costType.limit;
+      callCost = baseCost + (duration - costType.limit) * costType.addPerMin;
+    }
 
-class ProcessedCall {
-  constructor({ identifier, type, duration }) {
-    this.identifier = identifier;
-    this.type = type;
-    this.duration = duration;
+    total += callCost;
+    totalCalls += 1;
+    callsDetails.push({
+      identifier,
+      type,
+      duration,
+      callCost,
+    });
+  });
 
-    this.callCost = (function () {
-      const costType = COSTS[type.toLowerCase()];
-      let total = 0;
+  total = Number(total.toFixed(2));
 
-      if (costType === undefined) return 0;
-
-      if (duration < costType.limit) {
-        total = costType.cost * duration;
-      } else {
-        total = costType.cost * costType.limit;
-        total += (duration - costType.limit) * costType.addPerMin;
-      }
-
-      return total;
-    })();
-  }
+  return {
+    total,
+    totalCalls,
+    callsDetails,
+  };
 }
 
 module.exports = callsCost;

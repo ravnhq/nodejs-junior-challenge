@@ -26,65 +26,33 @@
  */
 
 function peopleInformation(people) {
-  const peopleRes = new PeopleResponse();
+  const count = people.length;
+  let sumAge = 0;
+  let sumHeight = 0;
+  let youngerPerson = null;
+  let tallerPerson = null;
 
-  people.forEach((item) => {
-    const person = new Person(item);
+  people.forEach((person) => {
+    const { age, height } = person;
 
-    peopleRes.addCount(person);
+    if (!youngerPerson || youngerPerson.age > age) {
+      youngerPerson = person;
+    }
 
-    peopleRes.tallerPerson = person.getTaller(peopleRes.tallerPerson);
-    peopleRes.youngerPerson = person.getYounger(peopleRes.youngerPerson);
+    if (!tallerPerson || tallerPerson.height < height) {
+      tallerPerson = person;
+    }
+
+    sumAge += age;
+    sumHeight += height;
   });
 
-  peopleRes.calcProms();
-
-  return peopleRes;
-}
-
-class Person {
-  constructor({ name, lastname, age, weight, height }) {
-    this.name = name;
-    this.lastname = lastname;
-    this.weight = weight;
-    this.height = height;
-    this.age = age;
-  }
-
-  getTaller(person) {
-    if (person !== null && this.height < person.height) return person;
-    return this;
-  }
-
-  getYounger(person) {
-    if (person !== null && this.age > person.age) return person;
-    return this;
-  }
-}
-
-class PeopleResponse {
-  constructor() {
-    this.youngerPerson = null;
-    this.tallerPerson = null;
-    this.ageSum = 0;
-    this.heightProm = 0;
-    this.ageProm = 0;
-    this.heightSum = 0;
-    this.count = 0;
-  }
-
-  addCount({ age, height }) {
-    this.ageSum += age;
-    this.heightSum += height;
-    this.count += 1;
-  }
-
-  calcProms() {
-    const prom = (total, n) => Math.round(total / n);
-
-    this.ageProm = prom(this.ageSum, this.count);
-    this.heightProm = prom(this.heightSum, this.count);
-  }
+  return {
+    tallerPerson,
+    youngerPerson,
+    heightProm: Math.round(sumHeight / count),
+    ageProm: Math.round(sumAge / count),
+  };
 }
 
 module.exports = peopleInformation;
