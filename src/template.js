@@ -12,13 +12,13 @@
  * Consider validating that the template includes the character and the third parameter is not empty. 
  * In the case that one of these conditions is not met, the method must return the message "Invalid parameters"
  * 
- * @param {string} template - Template to be used
+ * @param {string} model - Template to be used
  * @param {string} character - Character to search on template in order to replace it 
  * @param {string} message - String to be placed on the template
  * 
  * @returns {string}  - Formatted string covering the template
 */
 
-function template(template, character, message) { }
+function template(model, character, message) { }
 
 module.exports = template;
