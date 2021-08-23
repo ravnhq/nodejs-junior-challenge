@@ -8,4 +8,4 @@
 
 function fibonacci(limit) { }
 
-module.exports = fibonacci
+module.exports = fibonacci;
