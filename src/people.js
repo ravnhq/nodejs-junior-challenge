@@ -26,6 +26,54 @@
  * @returns {PeopleResponse}  - Processed information
 */
 
-function peopleInformation(people) { }
+function peopleInformation(people) {
+    if (people.length === 0) {
+        return null
+    }
+
+    const [ageProm, heightProm] = calcAgeAndHeightAvg(people)
+    const [youngerPerson, tallerPerson] = findYoungestAndTallest(people)
+
+    return {
+        ageProm: Math.round(ageProm),
+        heightProm: Math.round(heightProm),
+        youngerPerson: youngerPerson,
+        tallerPerson: tallerPerson,
+    }
+}
+
+/**
+ * Calculates the age and height average
+ * @param {Array<Person>} people People information to be processed
+ * @returns {[number, number]} the age and height average
+ */
+function calcAgeAndHeightAvg(people) {
+    const total = people.length
+    const accProm = ([age, height], p) => {
+        return [age + p.age / total, height + p.height / total]
+    }
+
+    return people.reduce(accProm, [0, 0])
+}
+
+/**
+ * Finds the youngest and tallest person in {@link people}.
+ * @param {Array<Person>} people People information to be processed
+ * @returns {[Person, Person]} the youngest and tallets person.
+ */
+function findYoungestAndTallest(people) {
+    let youngest = people[0], tallest = people[0]
+    for (const person of people) {
+        if (person.age < youngest.age) {
+            youngest = person
+        }
+
+        if (person.height > tallest.height) {
+            tallest = person
+        }
+    }
+
+    return [youngest, tallest]
+}
 
 module.exports = peopleInformation;
