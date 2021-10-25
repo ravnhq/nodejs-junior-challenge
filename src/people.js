@@ -26,6 +26,30 @@
  * @returns {PeopleResponse}  - Processed information
 */
 
-function peopleInformation(people) { }
+function peopleInformation(people) {
+  let younger = null;
+  let taller = null;
+  let totalAge = 0;
+  let totalHeight = 0;
+    
+  // get item  such that the value of 'property' matches callback(item1.property,item2.property)
+  const getMatchProp = (item1, item2, callback, property) => (
+    (item1 === null || callback(item2[property], item1[property]) === item2[property])
+      ? item2 : item1);
+  
+  people.forEach((person) => {
+    totalAge += person.age;
+    totalHeight += person.height;
+    younger = getMatchProp(younger, person, Math.min, 'age');
+    taller = getMatchProp(taller, person, Math.max, 'height');
+  });
+  
+  return {
+    ageProm: Math.round(totalAge / people.length),
+    heightProm: Math.round(totalHeight / people.length),
+    youngerPerson: younger,
+    tallerPerson: taller,
+  };
+}
 
 module.exports = peopleInformation;

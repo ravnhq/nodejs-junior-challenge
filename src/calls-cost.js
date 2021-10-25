@@ -39,6 +39,48 @@
  * @returns {CallsResponse}  - Processed information
 */
 
-function callsCost(calls) { }
+function callsCost(calls) {
+  const CALL_FARES = {
+    International: {
+      firstMinutes: 3,
+      costFirstMinutes: 7.56,
+      costLastMinutes: 3.03,
+    },
+    National: {    
+      firstMinutes: 3,
+      costFirstMinutes: 1.20,
+      costLastMinutes: 0.48,
+    },
+    Local: {
+      firstMinutes: 0,
+      costFirstMinutes: 0.2,
+      costLastMinutes: 0.2,
+    },
+    getCost(call) {
+      if (call.type in this) {
+        return Math.min(this[call.type].firstMinutes, call.duration) * this[call.type].costFirstMinutes 
+            + Math.max(0, call.duration - this[call.type].firstMinutes) * this[call.type].costLastMinutes;
+      }
+      return undefined;
+    },
+  };
+
+  const validCalls = calls.filter((item) => item.type in CALL_FARES);
+
+  validCalls.map((element) => { 
+    const newElement = element;
+    newElement.callCost = CALL_FARES.getCost(element);
+    return newElement;
+  });
+
+  let totalCost = 0;
+  validCalls.forEach((element) => { totalCost += element.callCost; });
+
+  return {
+    totalCalls: validCalls.length,
+    callsDetails: validCalls,
+    total: Number(totalCost.toFixed(2)),
+  };
+}
 
 module.exports = callsCost;

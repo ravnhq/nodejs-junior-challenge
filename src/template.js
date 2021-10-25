@@ -18,7 +18,24 @@
  * 
  * @returns {string}  - Formatted string covering the template
 */
-
-function template(model, character, message) { }
+  
+function template(model, character, message) {
+  if (message.length === 0 || model.indexOf(character) === -1) {
+    return 'Invalid parameters';
+  }
+  
+  let result = '';
+  const iterator = message[Symbol.iterator]();
+    
+  Array.from(model).forEach((element) => {
+    if (element === character) {
+      const resultIterator = iterator.next();
+      result += (resultIterator.done === false) ? resultIterator.value : element;    
+    } else {
+      result += element;
+    }
+  });
+  return result;
+}
 
 module.exports = template;
