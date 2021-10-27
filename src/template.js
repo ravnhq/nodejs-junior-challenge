@@ -19,6 +19,29 @@
  * @returns {string}  - Formatted string covering the template
 */
 
-function template(model, character, message) { }
+function template(model, character, message) {
+    if (!model.includes(character) || message.length === 0) {
+        return "Invalid parameters"
+    }
+
+    let index = 0
+    let formatted = ""
+
+    for (const char of model) {
+        if (char === character) {
+            if (index >= message.length) {
+                formatted += char
+            } else {
+                formatted += message.charAt(index)
+            }
+
+            index += 1
+        } else {
+            formatted += char
+        }
+    }
+
+    return formatted
+}
 
 module.exports = template;
