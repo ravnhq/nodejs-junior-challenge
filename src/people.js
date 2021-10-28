@@ -62,7 +62,9 @@ function calcAgeAndHeightAvg(people) {
  * @returns {[Person, Person]} the youngest and tallets person.
  */
 function findYoungestAndTallest(people) {
-    let youngest = people[0], tallest = people[0]
+    let youngest = people[0]
+    let tallest = people[0]
+
     for (const person of people) {
         if (person.age < youngest.age) {
             youngest = person
