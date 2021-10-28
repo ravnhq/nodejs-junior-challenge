@@ -100,7 +100,7 @@ function processCall(call) {
         return null
     }
 
-    return { callCost: roundDecimal(callCost, 2), ...call }
+    return { ...call, callCost: roundDecimal(callCost, 2) }
 }
 
 /**
