@@ -21,11 +21,11 @@
 
 function template(model, character, message) {
     if (!model.includes(character) || message.length === 0) {
-        return "Invalid parameters"
+        return 'Invalid parameters'
     }
 
     let index = 0
-    let formatted = ""
+    let formatted = ''
 
     for (const char of model) {
         if (char === character) {
