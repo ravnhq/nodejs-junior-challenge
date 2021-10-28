@@ -13,7 +13,7 @@ function fibonacci(limit) {
     let b = 1
     let t = 1
 
-    while (numbers.length != limit) {
+    while (numbers.length !== limit) {
         numbers.push(a)
         t = a + b
         a = b
