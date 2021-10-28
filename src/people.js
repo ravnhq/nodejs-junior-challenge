@@ -35,10 +35,10 @@ function peopleInformation(people) {
     const [youngerPerson, tallerPerson] = findYoungestAndTallest(people)
 
     return {
+        youngerPerson,
+        tallerPerson,
         ageProm: Math.round(ageProm),
         heightProm: Math.round(heightProm),
-        youngerPerson: youngerPerson,
-        tallerPerson: tallerPerson,
     }
 }
 
