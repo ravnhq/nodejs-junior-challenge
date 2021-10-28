@@ -46,14 +46,10 @@ const ENGLISH_MORSE = {
     'Z': '--..',
 }
 
-const MORSE_ENGLISH = (() => {
-    const reverse = { '': ' ' }
-    for (const key in ENGLISH_MORSE) {
-        reverse[ENGLISH_MORSE[key]] = key
-    }
-
-    return reverse
-})()
+const MORSE_ENGLISH = {
+    '': ' ',
+    ...Object.fromEntries(Object.entries(ENGLISH_MORSE).map(([k, v]) => [v, k]))
+}
 
 /** 
  * Write a program that automatically converts english text to morse code and vice versa, 
