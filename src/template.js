@@ -19,6 +19,13 @@
  * @returns {string}  - Formatted string covering the template
 */
 
-function template(model, character, message) { }
+function template(model, character, message) {
+  if (message.length === 0 || model.indexOf(character) === -1) { return 'Invalid parameters'; }
+  let result = model;
+  [...message].forEach((c) => {
+    result = result.replace(character, c);
+  });
+  return result;
+}
 
 module.exports = template;
