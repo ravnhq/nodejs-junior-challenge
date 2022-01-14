@@ -38,7 +38,39 @@
  * 
  * @returns {CallsResponse}  - Processed information
 */
+/* eslint no-param-reassign: ["error", { "props": false }] */
+function callsCost(calls) {
+  const objAux = calls.slice();
+  const processedCall = [];
+  const minIntExt = 3.03;
+  const minNatExt = 0.48;
+  const minuteLocal = 0.2;
+  const callInter = 7.56;
+  const callNat = 1.20;
+  let total = 0;
+  objAux.forEach(
+    (item) => {
+      if (item.type === 'International') {
+        item.callCost = item.duration < 3 ? item.duration * callInter : callInter * 3 + (item.duration - 3) * minIntExt;
+        total += item.callCost;
+        processedCall.push(item);
+      } else if (item.type === 'National') {
+        item.callCost = item.duration < 3 ? item.duration * callNat : callNat * 3 + (item.duration - 3) * minNatExt;
+        total += item.callCost;
+        processedCall.push(item);
+      } else if (item.type === 'Local') {
+        item.callCost = item.duration * minuteLocal;
+        total += item.callCost;
+        processedCall.push(item);
+      }
+    },
+  );
 
-function callsCost(calls) { }
+  return {
+    totalCalls: processedCall.length,
+    total: parseFloat(total.toFixed(2)),
+    callsDetails: processedCall.slice(),
+  };
+}
 
 module.exports = callsCost;

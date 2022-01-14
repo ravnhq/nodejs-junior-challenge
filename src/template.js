@@ -18,7 +18,24 @@
  * 
  * @returns {string}  - Formatted string covering the template
 */
-
-function template(model, character, message) { }
+/* eslint-disable */
+function template(model, character, message) {
+  if (!(model.includes(character)) || message.length === 0) { return 'Invalid parameters'; }
+  let format = '';
+  let indexMessage = 0;
+  for (const index in model) {
+    if (model[index] === character) {
+      if (message.indexOf(message[indexMessage]) === -1) {
+        format += character;
+      } else {
+        format += message[indexMessage];
+      }
+      indexMessage += 1;
+    } else {
+      format += model[index];
+    }
+  }
+  return format;
+}
 
 module.exports = template;
