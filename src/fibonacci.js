@@ -32,6 +32,4 @@ function fibonacci(limit) {
   return fibonacciNumbers;
 }
 
-console.log(fibonacci(20))
-
 module.exports = fibonacci;

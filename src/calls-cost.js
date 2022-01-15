@@ -39,43 +39,6 @@
  * @returns {CallsResponse}  - Processed information
  *
  */
-const calls = [
-  {
-    identifier: "NT-1",
-    type: "National",
-    duration: 3,
-  },
-  {
-    identifier: "NT-2",
-    type: "National",
-    duration: 5,
-  },
-  {
-    identifier: "INT-1",
-    type: "International",
-    duration: 2,
-  },
-  {
-    identifier: "INT-2",
-    type: "International",
-    duration: 9,
-  },
-  {
-    identifier: "LO-1",
-    type: "Local",
-    duration: 8,
-  },
-  {
-    identifier: "IN-1",
-    type: "Intern",
-    duration: 8,
-  },
-  {
-    identifier: "LO-1",
-    type: "Local",
-    duration: 8,
-  },
-];
 
 const callType = {
   International: {
@@ -94,27 +57,32 @@ const callType = {
 
 function processNextCall(calls) {
   let i = 0;
+  let totalCalls = 0;
+  let total = 0;
+  let processedCall = [];
 
   function calculateCost(call) {
-    let callToProcess = { ...call };
+    let callDetails = { ...call };
     const { duration } = call;
 
-    if (!callType[call.type]) return callToProcess;
+    if (!callType[call.type]) return callDetails;
 
-    callToProcess['cost'] =
+    callDetails["cost"] =
       duration <= 3
         ? duration * callType[call.type].max
         : duration * callType[call.type].max +
           (duration - 3 * callType[call.type].min);
 
-    return callToProcess;
+    totalCalls++;
+    total += callDetails["cost"];
+    return callDetails;
   }
 
   function calculate() {
     let call = calls[i];
-    const processed = calculateCost(call);
+    processedCall.push(calculateCost(call));
     i++;
-    return processed;
+    return { totalCalls, total, processedCall };
   }
 
   return calculate;
@@ -123,16 +91,13 @@ function processNextCall(calls) {
 const nextCall = processNextCall(calls);
 
 function callsCost(calls) {
-
   let i = 0;
-  while(i < calls.length){
-    const processedCall = nextCall()
-    console.log('processedCall :>> ', processedCall);
-    i++
+  let processedCall = null;
+  while (i < calls.length) {
+    processedCall = nextCall();
+    i++;
   }
+  return processedCall;
 }
-
-callsCost(calls)
-
 
 module.exports = callsCost;
