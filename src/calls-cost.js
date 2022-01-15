@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * @typedef {Object} Call
  * @property {string} identifier - Call's identifier
@@ -39,6 +40,85 @@
  * @returns {CallsResponse}  - Processed information
 */
 
-function callsCost(calls) { }
+function callsCost(calls) {
+
+  // calls : Array<Object>
+
+  let processedCalls = [];
+  let totalDuration = 0;
+  let numberOfCalls = 0;
+  let totalPay = 0;
+
+  calls.forEach(call => {
+
+    switch (call.type) {
+
+      case 'International':
+
+        let costInternational = 0;
+
+        if (call.duration <= 3) {
+          costInternational = call.duration * 7.56;
+        } else {
+          costInternational = 22.68 + (call.duration - 3) * 3.03;
+        }
+
+        processedCalls.push({
+          identifier: call.identifier,
+          type: 'International',
+          duration: call.duration,
+          callCost: costInternational
+        });
+
+        totalPay += costInternational;
+        numberOfCalls++;
+        break;
+
+      case 'National':
+
+        let costNational = 0;
+
+        if (call.duration <= 3) {
+          costNational = call.duration * 1.20;
+        } else {
+          costNational = 3.60 + (call.duration - 3) * 0.48;
+        }
+
+        processedCalls.push({
+          identifier: call.identifier,
+          type: 'National',
+          duration: call.duration,
+          callCost: costNational
+        });
+
+        totalPay += costNational;
+        numberOfCalls++;
+        break;
+
+      case 'Local':
+
+        let costLocal = call.duration * 0.2;
+
+        processedCalls.push({
+          identifier: call.identifier,
+          type: 'Local',
+          duration: call.duration,
+          callCost: costLocal
+        });
+
+        totalPay += costLocal;
+        numberOfCalls++;
+        break;
+    }
+
+    totalDuration += call.duration;
+  });
+
+  return {
+    totalCalls: numberOfCalls,
+    total: parseFloat(totalPay.toFixed(2)),
+    callsDetails: processedCalls
+  };
+}
 
 module.exports = callsCost;

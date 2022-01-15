@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * @typedef {Object} Person
  * @property {string} name - Person's name
@@ -26,6 +27,30 @@
  * @returns {PeopleResponse}  - Processed information
 */
 
-function peopleInformation(people) { }
+function peopleInformation(people) {
+
+  let listTotalAge = people.map((p) => p.age);
+  let listTotalHeight = people.map((p) => p.height);
+
+  console.log(listTotalAge);
+
+  let averageAge = Math.round((listTotalAge.reduce((a, b) => a + b) / people.length), 0);
+  let averageHeight = Math.round((listTotalHeight.reduce((a, b) => a + b) / people.length), 0);
+
+  console.log(averageAge);
+
+  let tallest = Math.max(...listTotalHeight);
+  let youngest = Math.min(...listTotalAge);
+
+  let tallestPersonIndex = listTotalHeight.indexOf(tallest);
+  let youngestPersonIndex = listTotalAge.indexOf(youngest);
+
+  return {
+    ageProm: averageAge,
+    heightProm: averageHeight,
+    youngerPerson: people[youngestPersonIndex],
+    tallerPerson: people[tallestPersonIndex]
+  }
+}
 
 module.exports = peopleInformation;

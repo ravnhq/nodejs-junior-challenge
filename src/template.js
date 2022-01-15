@@ -1,3 +1,4 @@
+/* eslint-disable */
 /** 
  * Create a method that takes 3 input parameters. A template, a character, and a character string.
  * Example: (XXX)XXX-XXX-XX, "X", 26365858364. 
@@ -19,6 +20,25 @@
  * @returns {string}  - Formatted string covering the template
 */
 
-function template(model, character, message) { }
+function template(model, character, message) {
+
+  let stringToFormat = model;
+  let arrayMessage = [];
+
+  if(message.length === 0 || !model.includes(character))
+  {
+    return 'Invalid parameters';
+  }
+
+  arrayMessage = [...message];
+
+  arrayMessage.forEach((charMessage) => {
+    stringToFormat = stringToFormat.replace(character, charMessage);
+  });
+
+  let stringFormatted = stringToFormat
+
+  return stringFormatted;
+}
 
 module.exports = template;
