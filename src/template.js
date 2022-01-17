@@ -19,6 +19,46 @@
  * @returns {string}  - Formatted string covering the template
 */
 
-function template(model, character, message) { }
+function template(model, character, message) {
+  let modelWithoutCharacters = model.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, " ").split(" ");
+  let modelWithoutGaps = modelWithoutCharacters.join("");
+  let stringRegex = "";
+  let processedMessage = "";
+  let newRegex = "";
+  let formattedString = "";
+
+  if (message.length === 0) {
+    formattedString = "Invalid parameters";
+  }
+  else if (character !== "X") {
+    formattedString = "Invalid parameters";
+  }
+  else {
+    for (let k = 0; k < modelWithoutGaps.length; k++) {
+      if (modelWithoutGaps[k] === character) {
+        if (message[k]) {
+          processedMessage += message[k];
+        }
+        else {
+          processedMessage += modelWithoutGaps[k];
+        }
+      } else {
+        processedMessage += modelWithoutGaps[k];
+      }
+    }
+
+    for (let i = 0; i < modelWithoutCharacters.length; i++) {
+      if (modelWithoutCharacters[i].length > 0) {
+        stringRegex += `([a-zA-Z0-9]{${modelWithoutCharacters[i].length}})`;
+      }
+
+    }
+
+    newRegex = new RegExp(stringRegex);
+    formattedString = processedMessage.replace(newRegex, "($1)$2-$3-$4");
+  }
+
+  return formattedString;
+}
 
 module.exports = template;
