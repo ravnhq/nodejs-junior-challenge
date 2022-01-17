@@ -41,6 +41,9 @@
 
 function callsCost(calls) {
 
+  //Check if array is empty
+  if(calls.length > 0) {
+
     /** @type {ProcessedCall[]} processedCall */
     let processedCall = [];
 
@@ -54,6 +57,7 @@ function callsCost(calls) {
     const conversionNumberInternational1 = 7.56;
     const conversionNumberInternational2 = 3.03;
 
+    //calculate call costs according to the type of call
     calls.forEach(call => {
       switch (call.type) {
         case 'Local':
@@ -79,6 +83,11 @@ function callsCost(calls) {
       total: Math.round(callCostTotal*100)/100,
       processedCall: processedCall
     };
+
+  }
+
+  return "Empty array";
+
 }
 
 const calculaterCost = (duration, conversionNumber1, conversionNumber2) => {
