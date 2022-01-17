@@ -19,6 +19,22 @@
  * @returns {string}  - Formatted string covering the template
 */
 
-function template(model, character, message) { }
+function template(model, character, message) {
+  //Validating that the template includes the character and the third parameter is not empty
+  if(message.length === 0 || !model.includes(character)) {
+    return 'Invalid parameters';
+  }
+
+  let stringToFormat = model;
+  let arrayMessage = [];
+
+  //Replacing pattern characters to message characters
+  arrayMessage = [...message];
+  arrayMessage.forEach((charMessage) => {
+    stringToFormat = stringToFormat.replace(character, charMessage);
+  });
+
+  return stringToFormat;
+}
 
 module.exports = template;

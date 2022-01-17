@@ -29,35 +29,35 @@
 function peopleInformation(people) {
     if(people.length > 0) {
 
-    let youngerPerson = null;
-    let tallerPerson = null;
+        let youngerPerson = null;
+        let tallerPerson = null;
 
-    let sumAges = 0;
-    let sumHeights = 0;
-    let indexYoungerPerson = people[0].age;
-    let indexTallerPerson = people[0].height;
+        let sumAges = 0;
+        let sumHeights = 0;
+        let indexYoungerPerson = people[0].age;
+        let indexTallerPerson = people[0].height;
 
-    //Find people and add ages and heights
-    people.forEach(person => {
-        sumAges += person.age;
-        sumHeights += person.height;
+        //Find people and add ages and heights
+        people.forEach(person => {
+            sumAges += person.age;
+            sumHeights += person.height;
 
-        if(indexYoungerPerson > person.age) {
-            indexYoungerPerson = person.age;
-            youngerPerson = person;
+            if(indexYoungerPerson > person.age) {
+                indexYoungerPerson = person.age;
+                youngerPerson = person;
+            }
+            if(indexTallerPerson < person.height) {
+                indexTallerPerson = person.height;
+                tallerPerson = person;
+            }
+        })
+
+        return {
+            ageProm: average(sumAges, people.length),
+            heightProm: average(sumHeights, people.length),
+            youngerPerson: youngerPerson,
+            tallerPerson: tallerPerson
         }
-        if(indexTallerPerson < person.height) {
-            indexTallerPerson = person.height;
-            tallerPerson = person;
-        }
-    })
-
-    return {
-        ageProm: average(sumAges, people.length),
-        heightProm: average(sumHeights, people.length),
-        youngerPerson: youngerPerson,
-        tallerPerson: tallerPerson
-    }
 
     }
 

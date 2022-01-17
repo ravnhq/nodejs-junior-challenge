@@ -11,94 +11,93 @@
 function morseCode(message, convertTo) {
   if(message.length > 0) {
 
-  const morse = {
-    A: '.-',
-    B: '-...',
-    C: '-.-.',
-    D: '-..',
-    E: '.',
-    F: '..-.',
-    G: '--.',
-    H: '....',
-    I: '..',
-    J: '.---',
-    K: '-.-',
-    L: '.-..',
-    M: '--',
-    N: '-.',
-    O: '---',
-    P: '.--.',
-    Q: '--.-',
-    R: '.-.',
-    S: '...',
-    T: '-',
-    U: '..-',
-    V: '...-',
-    W: '.--',
-    X: '-..-',
-    Y: '-.--',
-    Z: '--..',
-    0: '-----',
-    1: '.----',
-    2: '..---',
-    3: '...--',
-    4: '....-',
-    5: '.....',
-    6: '-....',
-    7: '--...',
-    8: '---..',
-    9: '----.',
-    ' ': ' ',
-    '.': '.-.-.-',
-    ',': '--..--',
-    '?': '..--..',
-    '!': '-.-.--',
-    '@': '.--.-.',
-    '+': '.-.-.',
-    '-': '-....-',
-    '/': '-..-.',
-  };
+    const morse = {
+      A: '.-',
+      B: '-...',
+      C: '-.-.',
+      D: '-..',
+      E: '.',
+      F: '..-.',
+      G: '--.',
+      H: '....',
+      I: '..',
+      J: '.---',
+      K: '-.-',
+      L: '.-..',
+      M: '--',
+      N: '-.',
+      O: '---',
+      P: '.--.',
+      Q: '--.-',
+      R: '.-.',
+      S: '...',
+      T: '-',
+      U: '..-',
+      V: '...-',
+      W: '.--',
+      X: '-..-',
+      Y: '-.--',
+      Z: '--..',
+      0: '-----',
+      1: '.----',
+      2: '..---',
+      3: '...--',
+      4: '....-',
+      5: '.....',
+      6: '-....',
+      7: '--...',
+      8: '---..',
+      9: '----.',
+      ' ': ' ',
+      '.': '.-.-.-',
+      ',': '--..--',
+      '?': '..--..',
+      '!': '-.-.--',
+      '@': '.--.-.',
+      '+': '.-.-.',
+      '-': '-....-',
+      '/': '-..-.',
+    };
 
-  function toMorse(phrase) {
-    const newMessage = phrase.toUpperCase();
-    let result = '';
+    function toMorse(phrase) {
+      const newMessage = phrase.toUpperCase();
+      let result = '';
 
-    for (let i = 0; i < newMessage.length; i += 1) {
-      result += `${morse[newMessage[i]]} `;
+      for (let i = 0; i < newMessage.length; i += 1) {
+        result += `${morse[newMessage[i]]} `;
+      }
+
+      return result.trim();
     }
 
-    return result.trim();
-  }
+    function toEnglish(phrase) {
+      let result = '';
 
-  function toEnglish(phrase) {
-    let result = '';
-
-    phrase
-      .split('   ')
-      .map((word) => word.split(' '))
-      .forEach((codeWord) => {
-        codeWord.forEach((codeChar) => {
-          result += Object.keys(morse).find((key) => morse[key] === codeChar);
+      phrase
+        .split('   ')
+        .map((word) => word.split(' '))
+        .forEach((codeWord) => {
+          codeWord.forEach((codeChar) => {
+            result += Object.keys(morse).find((key) => morse[key] === codeChar);
+          });
+          result += ' ';
         });
-        result += ' ';
-      });
 
-    return result.trim();
-  }
+      return result.trim();
+    }
 
-  if (convertTo === 'morse') {
-    return toMorse(message);
-  }
-  if (convertTo === 'english') {
-    return toEnglish(message);
-  }
+    if (convertTo === 'morse') {
+      return toMorse(message);
+    }
+    if (convertTo === 'english') {
+      return toEnglish(message);
+    }
 
-  return "Unrecognized option";
+    return "Unrecognized option";
 
   }
 
   return "There is no message";
-  
 }
 
 module.exports = morseCode;
