@@ -39,6 +39,33 @@
  * @returns {CallsResponse}  - Processed information
 */
 
-function callsCost(calls) { }
+function callsCost(calls) {
+   /* let totalCalls = 0;
+    let totalCost = 0;
+    calls.forEach(val => {
+        if (val.type === 'Local' || val.type === 'National' || val.type === 'International') {
+            console.log('llamada : ' + val.identifier)
+          totalCalls += 1;
+          if (val.type === 'Local') {
+            let callCost = val.duration * 0.2;
+            totalCost += callCost;
+            console.log(callCost)
+          } else if (val.type === 'National') {
+            let callCost = val.duration > 3 ? (val.duration - 3) * 0.48 + 1.20 : val.duration == 3 ? 1.20:val.duration*0.48;
+            totalCost += callCost;
+            console.log(callCost)
+          } else if (val.type === 'International') {
+            let callCost = val.duration > 3 ? (val.duration - 3) * 3.03 + 7.56 : val.duration == 3 ? 7.56:val.duration*3.03;
+            totalCost += callCost;
+            console.log(callCost)
+          }
+        }
+        
+      })
+  console.log('coste llamada total : ' + totalCost)
+  console.log(totalCalls)*/
+
+  //This is NOT FINISHED, numbers did not match 
+ }
 
 module.exports = callsCost;

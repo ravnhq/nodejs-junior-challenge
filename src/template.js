@@ -19,6 +19,18 @@
  * @returns {string}  - Formatted string covering the template
 */
 
-function template(model, character, message) { }
+function template(model, character, message) {
+    let ans = model
+    if (model.indexOf(character) > -1 && message != '' ){//validating parameters
+        for (let j = 0; j < message.length; j++) {
+            ans = ans.replace(character, message[j])//replacing character in model for each letter in message
+        }
+        return ans
+    } else {
+        return "Invalid parameters"
+    }
+
+
+}
 
 module.exports = template;

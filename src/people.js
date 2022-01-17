@@ -26,6 +26,23 @@
  * @returns {PeopleResponse}  - Processed information
 */
 
-function peopleInformation(people) { }
+function peopleInformation(people) {
+    let avrAge = 0;
+    let avrHeight = 0;
+    const len = people.length;
+    people.forEach(val => {
+        avrAge += val.age
+        avrHeight += val.height
+        //Gets the average height and average age from people
+    });
+    let minAge = Math.min(...people.map(val => val.age))//gets minimun age from people
+    let minAgePerson = people.find(min => min.age === minAge)//gets the object with the youngest person in people
+    let maxHeight = Math.max(...people.map(val => val.height))//gets max height from people
+    let maxHeightPerson = people.find(max => max.height === maxHeight)//gets the object with the person data that is the tallest
+    avrAge = Math.round(avrAge / len)
+    avrHeight = Math.round(avrHeight / len)
+    let ans = { 'ageProm': avrAge, 'heightProm': avrHeight, 'youngerPerson': minAgePerson, 'tallerPerson': maxHeightPerson }
+    return ans
+}
 
 module.exports = peopleInformation;
