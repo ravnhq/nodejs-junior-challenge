@@ -9,6 +9,8 @@
 */
 
 function morseCode(message, convertTo) {
+  if(message.length > 0) {
+
   const morse = {
     A: '.-',
     B: '-...',
@@ -92,6 +94,11 @@ function morseCode(message, convertTo) {
   }
 
   return "Unrecognized option";
+
+  }
+
+  return "There is no message";
+  
 }
 
 module.exports = morseCode;

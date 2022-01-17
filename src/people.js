@@ -27,6 +27,8 @@
 */
 
 function peopleInformation(people) {
+    if(people.length > 0) {
+
     let youngerPerson = null;
     let tallerPerson = null;
 
@@ -56,6 +58,10 @@ function peopleInformation(people) {
         youngerPerson: youngerPerson,
         tallerPerson: tallerPerson
     }
+
+    }
+
+    return "There are no people";
 }
 
 const average = (sum, total) => {
