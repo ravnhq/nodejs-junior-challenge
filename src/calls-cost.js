@@ -39,6 +39,56 @@
  * @returns {CallsResponse}  - Processed information
 */
 
-function callsCost(calls) { }
+function callsCost(calls) {
+
+    /** @type {ProcessedCall[]} processedCall */
+    let processedCall = [];
+
+    let callCost = 0;
+    let callCostTotal = 0;
+    let callsTotal = 0;
+
+    const conversionNumberLocal = 0.2;
+    const conversionNumberNational1 = 1.20;
+    const conversionNumberNational2 = 0.48;
+    const conversionNumberInternational1 = 7.56;
+    const conversionNumberInternational2 = 3.03;
+
+    calls.forEach(call => {
+      switch (call.type) {
+        case 'Local':
+          callCost = call.duration * conversionNumberLocal;
+          break;
+        case 'National':
+          callCost = calculaterCost(call.duration, conversionNumberNational1, conversionNumberNational2);
+          break;
+        case 'International':
+          callCost = calculaterCost(call.duration, conversionNumberInternational1, conversionNumberInternational2);
+      }
+
+      processedCall.push({...call, callCost});
+      if(callCost > 0) {
+        callsTotal++;
+      }
+      callCostTotal += callCost;
+      callCost = 0;
+    })
+
+    return {
+      totalCalls: callsTotal,
+      total: Math.round(callCostTotal*100)/100,
+      processedCall: processedCall
+    };
+}
+
+const calculaterCost = (duration, conversionNumber1, conversionNumber2) => {
+  if(duration < 4) {
+    return conversionNumber1 * duration;
+  }
+
+  if(duration > 3) {
+    return (conversionNumber1 * 3) + (conversionNumber2 * (duration - 3));
+  }
+}
 
 module.exports = callsCost;
