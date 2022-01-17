@@ -8,6 +8,7 @@
 
 function fibonacci(limit) {
     let fibArray=[0,1]
+    //Using a for loop to generate the fibonacci sequence, pushing the results in an Array
     for (fibArray, i=0,j=1,k=2;k<limit;k++){
         x=i+j;
         i=j;

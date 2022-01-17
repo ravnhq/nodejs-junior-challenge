@@ -40,32 +40,51 @@
 */
 
 function callsCost(calls) {
-   /* let totalCalls = 0;
-    let totalCost = 0;
-    calls.forEach(val => {
-        if (val.type === 'Local' || val.type === 'National' || val.type === 'International') {
-            console.log('llamada : ' + val.identifier)
-          totalCalls += 1;
-          if (val.type === 'Local') {
-            let callCost = val.duration * 0.2;
-            totalCost += callCost;
-            console.log(callCost)
-          } else if (val.type === 'National') {
-            let callCost = val.duration > 3 ? (val.duration - 3) * 0.48 + 1.20 : val.duration == 3 ? 1.20:val.duration*0.48;
-            totalCost += callCost;
-            console.log(callCost)
-          } else if (val.type === 'International') {
-            let callCost = val.duration > 3 ? (val.duration - 3) * 3.03 + 7.56 : val.duration == 3 ? 7.56:val.duration*3.03;
-            totalCost += callCost;
-            console.log(callCost)
+  let processedCalls = [];
+  const lCallCost = 0.2;
+  const nCallCost = 1.20;
+  const iCallCost = 7.56;
+  let totalCalls = 0;
+  let totalCost = 0;
+  let tempCost = 0
+  let callCost = 0
+  calls.forEach(val => {
+    if (val.type === 'Local' || val.type === 'National' || val.type === 'International') {
+      for (let i = 1; i < val.duration + 1; i++) {
+        if (val.type === 'Local') {
+          totalCost += lCallCost;
+        }
+        if (val.type === 'National') {
+          if (i <= 3) {
+            totalCost += nCallCost
+          }
+          if (i > 3) {
+            totalCost += 0.48;
           }
         }
-        
-      })
-  console.log('coste llamada total : ' + totalCost)
-  console.log(totalCalls)*/
-
-  //This is NOT FINISHED, numbers did not match 
- }
+        if (val.type === 'International') {
+          if (i <= 3) {
+            totalCost += iCallCost
+          }
+          if (i > 3) {
+            totalCost += 3.03
+          }
+        }
+      }
+      tempCost = totalCost - tempCost
+      totalCost = tempCost
+      callCost += totalCost
+      val.callCost = totalCost
+      processedCalls.push(val)
+      totalCalls += 1
+    }
+  })
+  let ans = {
+    'totalCalls': totalCalls,
+    'total': parseFloat(callCost.toFixed(2)),
+    'callsDetails': processedCalls
+  }
+  return ans
+}
 
 module.exports = callsCost;
