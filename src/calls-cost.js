@@ -31,7 +31,7 @@
  * National: first 3 minutes $ 1.20 -> $ 0.48 per additional minute
  * Local: $ 0.2 per minute.
  * 
- * The function must return the total calls, the details of each call (the detail received + the cost of the call) 
+ * The function must retur5n the total calls, the details of each call (the detail received + the cost of the call) 
  * and the total to pay taking into account all calls
  * 
  * @param {Call[]} calls - Call's information to be processed
@@ -39,6 +39,48 @@
  * @returns {CallsResponse}  - Processed information
 */
 
-function callsCost(calls) { }
+function CostForCall( firstMinutes, costFirstMinutes, extraCost, totalMinutes ){
+ /* firstMinutes => value for First "n" Minutos 
+    costFirstMinutes => Cost for First Minutes
+    extraCost => Cost for Extra minutes
+    totalMinutes => Total Minutes */
+  let totalCost  = 0;
+  if(firstMinutes === 0){
+    return(totalCost= extraCost*totalMinutes)
+  }else{
+    totalCost = costFirstMinutes
+    if(totalMinutes > firstMinutes){
+      totalCost = totalCost + extraCost*(totalMinutes-firstMinutes)
+    }
+    return totalCost
+  }
+}
+
+function callsCost(calls) {
+  let callsInformation = {
+    totalCalls: calls.length,
+    callsDetails: [],
+    total: 0,
+  }
+
+  calls.forEach( call => {
+    switch (call.type) {
+      case 'International':
+          callsInformation.total += CostForCall( 3 , 7.56, 3.03, call.duration)
+          callsInformation.callsDetails.push({...call , callCost:CostForCall( 3 , 7.56, 3.03, call.duration)})
+        break;
+      case 'National':
+          callsInformation.total += CostForCall( 3 , 1.2, 0.48, call.duration)
+          callsInformation.callsDetails.push({...call , callCost:CostForCall( 3 , 1.20, 0.48, call.duration)})
+        break;
+      default:
+          callsInformation.total += CostForCall( 0 , 0, 0.2, call.duration)
+          callsInformation.callsDetails.push({...call , callCost:CostForCall( 0 , 0, 0.2, call.duration)})
+        break;
+    }
+  })
+
+  return callsInformation
+}
 
 module.exports = callsCost;

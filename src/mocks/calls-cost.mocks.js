@@ -26,7 +26,7 @@ const calls = [
   },
   {
     identifier: 'IN-1',
-    type: 'Intern',
+    type: 'International',
     duration: 8,
   },
   {
