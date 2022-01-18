@@ -6,6 +6,12 @@
  * @returns {number[]}  - Fibonacci Serie
 */
 
-function fibonacci(limit) { }
+function fibonacci(limit) { 
+  let fibonacciSerie = [0,1]
+  for( let i= 2 ; limit>i; i++ ){
+    fibonacciSerie.push(fibonacciSerie[i-1] + fibonacciSerie[i-2]);
+  }
+  return {'length': limit, "numbers": fibonacciSerie}
+}
 
 module.exports = fibonacci;
