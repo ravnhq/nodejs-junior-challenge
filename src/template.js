@@ -19,6 +19,20 @@
  * @returns {string}  - Formatted string covering the template
 */
 
-function template(model, character, message) { }
+function template(model, character, message) {
+  let counter = 0
+  let result = []
+  const templateModel = model.split('')
+  templateModel.forEach( (letter) => {
+    if( letter === character ){
+      result.push(message[counter] ? message[counter]:character)
+      counter++
+    }else{
+      result.push(letter)
+    }
+  })
+
+  return (!(model===result.join('')) && message ) ? result.join(''):'Invalid parameters'
+ }
 
 module.exports = template;
