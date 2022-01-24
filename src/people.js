@@ -26,6 +26,29 @@
  * @returns {PeopleResponse}  - Processed information
 */
 
-function peopleInformation(people) { }
+function peopleInformation(people) { 
+  let results = {
+    ageProm: 0,
+    heightProm: 0,
+    youngerPerson: people[0],
+    tallerPerson: people[0]
+  }
+
+  people.forEach( person => {
+    person.age < results.youngerPerson.age && (results.youngerPerson = person)
+    person.height > results.tallerPerson.height && (results.tallerPerson = person)
+
+    results.ageProm += person.age/people.length
+    results.heightProm += person.height/people.length
+  })
+
+  return {
+    ageProm: Math.round(results.ageProm),
+    heightProm: Math.round(results.heightProm),
+    youngerPerson: results.youngerPerson,
+    tallerPerson: results.tallerPerson
+  }
+
+}
 
 module.exports = peopleInformation;
