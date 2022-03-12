@@ -24,7 +24,7 @@ function template(model, character, message) {
     const modelAsArray = model.split('');
 
     const modelIncludesChar = model.includes(character);
-    if (!message && !modelIncludesChar) { //validatingInput helper func
+    if (!message || !modelIncludesChar) { //validatingInput helper func
         return 'Invalid parameters';
     }
   
