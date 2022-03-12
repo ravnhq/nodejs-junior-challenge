@@ -26,6 +26,45 @@
  * @returns {PeopleResponse}  - Processed information
 */
 
-function peopleInformation(people) { }
+function peopleInformation(people) {
+    const PeopleResponse = {};
+
+    function getAgeAverage(arrOfObjects) {
+        let initialValue = 0;
+        const sum = arrOfObjects.reduce((previousValue, currentValue) => previousValue + currentValue.age, initialValue);
+        return Math.round(sum / arrOfObjects.length); 
+    }
+
+    function getHeightAverage(arrOfObjects) {
+        let initialValue = 0;
+        const sum = arrOfObjects.reduce((previousValue, currentValue) => previousValue + currentValue.height, initialValue);
+        return Math.round(sum / arrOfObjects.length); 
+    }
+
+    const compareAge = (a, b) => a.age - b.age;
+
+    function findYoungestPerson(arrOfObjects) {
+        const arrCopy = arrOfObjects.slice();
+        
+        return arrCopy.sort(compareAge).shift();
+
+    }
+
+    const compareHeight = (a, b) => a.height - b.height;
+
+    function findTallestPerson(arrOfObjects) {
+        const arrCopy = arrOfObjects.slice();
+        
+        return arrCopy.sort(compareHeight).pop();
+
+    }
+
+    PeopleResponse.ageProm = getAgeAverage(people);
+    PeopleResponse.heightProm = getHeightAverage(people);
+    PeopleResponse.youngerPerson = findYoungestPerson(people) ;
+    PeopleResponse.tallerPerson = findTallestPerson(people);
+
+    return PeopleResponse;
+}
 
 module.exports = peopleInformation;
