@@ -19,6 +19,21 @@
  * @returns {string}  - Formatted string covering the template
 */
 
-function template(model, character, message) { }
+function template(model, character, message) {
+    const messageAsArray = message.split('');
+    const modelAsArray = model.split('');
+
+    const modelIncludesChar = model.includes(character);
+    if (!message && !modelIncludesChar) { //validatingInput helper func
+        return 'Invalid parameters';
+    }
+  
+    while (modelAsArray.includes(character) && messageAsArray.length >= 1) {
+        modelAsArray.splice(modelAsArray.indexOf(character), 1, messageAsArray[0]);
+        messageAsArray.shift();
+    }
+
+    return modelAsArray.join('');
+}
 
 module.exports = template;
