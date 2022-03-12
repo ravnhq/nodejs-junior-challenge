@@ -29,34 +29,34 @@
 function peopleInformation(people) {
     const PeopleResponse = {};
 
-    function getAgeAverage(arrOfObjects) {
+    function getAgeAverage(arrOfObjects) { //helper func
         let initialValue = 0;
         const sum = arrOfObjects.reduce((previousValue, currentValue) => previousValue + currentValue.age, initialValue);
+
         return Math.round(sum / arrOfObjects.length); 
     }
 
-    function getHeightAverage(arrOfObjects) {
+    function getHeightAverage(arrOfObjects) { //helper func
         let initialValue = 0;
         const sum = arrOfObjects.reduce((previousValue, currentValue) => previousValue + currentValue.height, initialValue);
+
         return Math.round(sum / arrOfObjects.length); 
     }
 
-    const compareAge = (a, b) => a.age - b.age;
+    const compareAge = (a, b) => a.age - b.age; //helper func
 
-    function findYoungestPerson(arrOfObjects) {
+    function findYoungestPerson(arrOfObjects) { //helper func
         const arrCopy = arrOfObjects.slice();
         
         return arrCopy.sort(compareAge).shift();
-
     }
 
-    const compareHeight = (a, b) => a.height - b.height;
+    const compareHeight = (a, b) => a.height - b.height; //helper func
 
-    function findTallestPerson(arrOfObjects) {
+    function findTallestPerson(arrOfObjects) { //helper func
         const arrCopy = arrOfObjects.slice();
         
         return arrCopy.sort(compareHeight).pop();
-
     }
 
     PeopleResponse.ageProm = getAgeAverage(people);
