@@ -1,3 +1,5 @@
+const utilityFunctions = require('./utils');
+
 /**
  * @typedef {Object} Call
  * @property {string} identifier - Call's identifier
@@ -41,48 +43,14 @@
 
 function callsCost(calls) {
     const CallsResponse = {};
+    const ProcessedCall = utilityFunctions.filterByType(calls);
 
-    const validCallTypes = ['National', 'International', 'Local'];
-    function filterByType(arrOfObjects) {
-        const result = arrOfObjects.filter(object => validCallTypes.includes(object.type));
-        return result;
-    }
-
-    const ProcessedCall = filterByType(calls); //arr of objects
-   
     for (const call of ProcessedCall) {
-        call.callCost = calculateCallCost(call);
-    }
-
-    function calculateTotalCallsCost(arrOfObjects) {
-        const initialValue = 0;
-        return ProcessedCall.reduce((previousValue, currentValue) => previousValue + currentValue.callCost,
-        initialValue).toFixed(2);
-    }
-
-    function calculateCallCost(obj) {
-        let totalCost = 0;
-        let additionalMinutes = obj.duration - 3;
-        if (obj.type === 'International') {
-            if (obj.duration <= 3) {
-                totalCost = 7.56 * obj.duration;
-            } else {   
-            totalCost = 22.68 + (additionalMinutes * 3.03);
-            }
-        } else if (obj.type === 'National') {
-            if (obj.duration <= 3) {
-                totalCost = 1.2 * obj.duration;
-            } else {   
-            totalCost = 3.6 + (additionalMinutes * 0.48);
-            }
-        } else {
-            totalCost = obj.duration * 0.2;
-        }
-        return totalCost;
+        call.callCost = utilityFunctions.calculateCallCost(call);
     }
 
     CallsResponse.totalCalls = ProcessedCall.length;
-    CallsResponse.total = Number(calculateTotalCallsCost(calls));
+    CallsResponse.total = Number(utilityFunctions.calculateTotalCallsCost(ProcessedCall));
     CallsResponse.callsDetails = ProcessedCall;
     
     return CallsResponse;  

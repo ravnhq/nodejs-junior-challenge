@@ -1,3 +1,5 @@
+const utilityFunctions = require('./utils');
+
 /** 
  * Create a method that takes 3 input parameters. A template, a character, and a character string.
  * Example: (XXX)XXX-XXX-XX, "X", 26365858364. 
@@ -20,20 +22,13 @@
 */
 
 function template(model, character, message) {
-    const messageAsArray = message.split('');
-    const modelAsArray = model.split('');
 
-    const modelIncludesChar = model.includes(character);
-    if (!message || !modelIncludesChar) { //validatingInput helper func
+    if (!message || !(model.includes(character))) {
         return 'Invalid parameters';
-    }
-  
-    while (modelAsArray.includes(character) && messageAsArray.length >= 1) {
-        modelAsArray.splice(modelAsArray.indexOf(character), 1, messageAsArray[0]);
-        messageAsArray.shift();
-    }
+    } else {
+        return utilityFunctions.convertToTemplate(model, character, message);
+    }    
 
-    return modelAsArray.join('');
 }
 
 module.exports = template;
