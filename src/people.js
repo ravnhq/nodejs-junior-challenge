@@ -1,5 +1,3 @@
-const utilityFunctions = require('./utils');
-
 /**
  * @typedef {Object} Person
  * @property {string} name - Person's name
@@ -28,13 +26,43 @@ const utilityFunctions = require('./utils');
  * @returns {PeopleResponse}  - Processed information
 */
 
+const getAgeAverage = arrOfObjects => { 
+    let initialValue = 0;
+    const sum = arrOfObjects.reduce((previousValue, currentValue) => previousValue + currentValue.age, initialValue);
+
+    return Math.round(sum / arrOfObjects.length); 
+}
+
+const getHeightAverage = arrOfObjects => {
+    let initialValue = 0;
+    const sum = arrOfObjects.reduce((previousValue, currentValue) => previousValue + currentValue.height, initialValue);
+
+    return Math.round(sum / arrOfObjects.length); 
+}
+
+const compareAge = (a, b) => a.age - b.age;
+
+const findYoungestPerson = arrOfObjects => {
+    const arrCopy = arrOfObjects.slice();
+    
+    return arrCopy.sort(compareAge).shift();
+}
+
+const compareHeight = (a, b) => a.height - b.height;
+
+const findTallestPerson = arrOfObjects => {
+    const arrCopy = arrOfObjects.slice();
+    
+    return arrCopy.sort(compareHeight).pop();
+}
+
 function peopleInformation(people) {
     const PeopleResponse = {};
 
-    PeopleResponse.ageProm = utilityFunctions.getAgeAverage(people);
-    PeopleResponse.heightProm = utilityFunctions.getHeightAverage(people);
-    PeopleResponse.youngerPerson = utilityFunctions.findYoungestPerson(people) ;
-    PeopleResponse.tallerPerson = utilityFunctions.findTallestPerson(people);
+    PeopleResponse.ageProm = getAgeAverage(people);
+    PeopleResponse.heightProm = getHeightAverage(people);
+    PeopleResponse.youngerPerson = findYoungestPerson(people) ;
+    PeopleResponse.tallerPerson = findTallestPerson(people);
 
     return PeopleResponse;
 }
