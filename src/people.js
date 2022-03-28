@@ -57,14 +57,14 @@ const findTallestPerson = arrOfObjects => {
 }
 
 function peopleInformation(people) {
-    const PeopleResponse = {};
+    const peopleResponse = {};
 
-    PeopleResponse.ageProm = getAgeAverage(people);
-    PeopleResponse.heightProm = getHeightAverage(people);
-    PeopleResponse.youngerPerson = findYoungestPerson(people) ;
-    PeopleResponse.tallerPerson = findTallestPerson(people);
+    peopleResponse.ageProm = getAgeAverage(people);
+    peopleResponse.heightProm = getHeightAverage(people);
+    peopleResponse.youngerPerson = findYoungestPerson(people) ;
+    peopleResponse.tallerPerson = findTallestPerson(people);
 
-    return PeopleResponse;
+    return peopleResponse;
 }
 
 module.exports = peopleInformation;
