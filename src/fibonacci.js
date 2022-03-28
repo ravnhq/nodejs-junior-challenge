@@ -7,19 +7,19 @@
 */
 
 function fibonacci(limit) {
-    const Fibonacci = [];
+    const fibonacciSeries = [];
     let initial = 0;
     let final = 1;
     let sum = 0;
 
     for (let i = 0; i < limit; i++) {
-        Fibonacci.push(initial)
+        fibonacciSeries.push(initial);
         sum = initial + final;
         initial = final;
         final = sum;
     }
 
-    return Fibonacci;
+    return fibonacciSeries;
 }
 
 module.exports = fibonacci;
