@@ -31,7 +31,7 @@ const convertToTemplate = (model, character, message) => {
 
 function template(model, character, message) {
 
-    if (!message || !(model.includes(character))) {
+    if (!message || !model.includes(character)) {
         return 'Invalid parameters';
     } else {
         return convertToTemplate(model, character, message);

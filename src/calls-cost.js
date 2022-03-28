@@ -74,18 +74,18 @@ const calculateTotalCallsCost = arrOfObjects => {
 }
 
 function callsCost(calls) {
-    const CallsResponse = {};
+    const callsResponse = {};
     const ProcessedCall = filterByType(calls);
 
     for (const call of ProcessedCall) {
         call.callCost = calculateCallCost(call);
     }
 
-    CallsResponse.totalCalls = ProcessedCall.length;
-    CallsResponse.total = Number(calculateTotalCallsCost(ProcessedCall));
-    CallsResponse.callsDetails = ProcessedCall;
+    callsResponse.totalCalls = ProcessedCall.length;
+    callsResponse.total = Number(calculateTotalCallsCost(ProcessedCall));
+    callsResponse.callsDetails = ProcessedCall;
     
-    return CallsResponse;  
+    return callsResponse;  
 }
 
 module.exports = callsCost;

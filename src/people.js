@@ -61,7 +61,7 @@ function peopleInformation(people) {
 
     peopleResponse.ageProm = getAgeAverage(people);
     peopleResponse.heightProm = getHeightAverage(people);
-    peopleResponse.youngerPerson = findYoungestPerson(people) ;
+    peopleResponse.youngerPerson = findYoungestPerson(people);
     peopleResponse.tallerPerson = findTallestPerson(people);
 
     return peopleResponse;
