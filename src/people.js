@@ -27,14 +27,14 @@
 */
 
 const getAgeAverage = arrOfObjects => { 
-    let initialValue = 0;
+    const initialValue = 0;
     const sum = arrOfObjects.reduce((previousValue, currentValue) => previousValue + currentValue.age, initialValue);
 
     return Math.round(sum / arrOfObjects.length); 
 }
 
 const getHeightAverage = arrOfObjects => {
-    let initialValue = 0;
+    const initialValue = 0;
     const sum = arrOfObjects.reduce((previousValue, currentValue) => previousValue + currentValue.height, initialValue);
 
     return Math.round(sum / arrOfObjects.length); 
