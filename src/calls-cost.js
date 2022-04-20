@@ -39,6 +39,51 @@
  * @returns {CallsResponse}  - Processed information
 */
 
-function callsCost(calls) { }
+function callsCost(calls) { 
+
+    feeMinutes = 3;
+    fee = {
+        'International': [7.56, 3.03],
+        'National': [1.20, 0.48],
+        'Local': [0.2, 0.2]
+    };
+
+    totalCalls = 0;
+    total = 0;
+    callsDetails = [];
+
+    calls.forEach(call => {
+
+        if (fee[call.type]) {
+
+            totalCalls += 1;
+
+            additionalMinutes = call.duration - feeMinutes;
+            callCost = 0;
+            if (additionalMinutes > 0) {
+                callCost += fee[call.type][0]*feeMinutes;
+                callCost += fee[call.type][1]*additionalMinutes;
+            } else {
+                callCost += fee[call.type][0]*call.duration;
+            }
+
+            total += callCost;
+
+            callsDetails.push({
+                'identifier': call.identifier,
+                'type': call.type,
+                'duration': call.duration,
+                'callCost': parseFloat(callCost.toFixed(2))
+            })
+        }
+    })
+
+    response = {
+        'totalCalls': totalCalls,
+        'total': parseFloat(total.toFixed(2)),
+        'callsDetails': callsDetails
+    }
+    return response
+}
 
 module.exports = callsCost;
