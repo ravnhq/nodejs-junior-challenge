@@ -13,7 +13,7 @@ function fibonacci(limit) {
     if (limit==1)
         return [0];
 
-    let serie = [0,1]
+    const serie = [0,1]
     for (let i=2; i<limit; i++) {
         serie.push(serie[i-1] + serie[i-2]);
     }

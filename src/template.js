@@ -23,10 +23,9 @@ function template(model, character, message) {
     if (!message) 
         return 'Invalid parameters';
 
-    let replaced = []
+    const replaced = []
     let j = 0;
-    for (let i=0; i<model.length; i++) {
-        const char = model[i];
+    for (const char of model) {
         if (char === character) {
             if (j < message.length) {
                 replaced.push(message[j++]);

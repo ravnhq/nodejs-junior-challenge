@@ -70,11 +70,11 @@ function morseCode(message, convertTo) {
         toEnglish[toMorse[key]] = key;
     });
 
-    let converted = [];
+    const converted = [];
 
     if (convertTo === 'morse') {
 
-        for (let char of msg) {
+        for (const char of msg) {
             converted.push(toMorse[char]);
             converted.push(' ');
         }
@@ -84,7 +84,7 @@ function morseCode(message, convertTo) {
 
         let morseLetter = [];
         let skipBlankSpace = false;
-        for (let char of msg) {
+        for (const char of msg) {
             if (char !== ' '){
                 morseLetter.push(char);
             } else {

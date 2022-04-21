@@ -29,32 +29,28 @@
 function peopleInformation(people) {
     let ageSum = 0;
     let heightSum = 0;
-    let youngerAge = 300;
-    let tallerMeasure = 0;
     let persons = 0;
 
-    let youngerPerson = null;
-    let tallerPerson = null;
+    let youngerPerson = people[Object.keys(people)[0]];
+    let tallerPerson = people[Object.keys(people)[0]];
 
     people.forEach( person => {
         ageSum += person.age;
         heightSum += person.height;
-        if (person.age < youngerAge) {
+        if (person.age < youngerPerson.age) {
             youngerPerson = person;
-            youngerAge = person.age;
         }
-        if(person.height > tallerMeasure) {
+        if(person.height > tallerPerson.height) {
             tallerPerson = person;
-            tallerMeasure = person.height;
         }
         persons += 1;
     })
 
     const peopleResponse = {
-        'ageProm': parseFloat((ageSum/persons).toFixed(0)),
-        'heightProm': parseFloat((heightSum/persons).toFixed(0)),
-        'youngerPerson': youngerPerson,
-        'tallerPerson': tallerPerson
+        ageProm: parseFloat((ageSum/persons).toFixed(0)),
+        heightProm: parseFloat((heightSum/persons).toFixed(0)),
+        youngerPerson,
+        tallerPerson
     }
     return peopleResponse;
 }
