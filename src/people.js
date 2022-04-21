@@ -26,6 +26,37 @@
  * @returns {PeopleResponse}  - Processed information
 */
 
-function peopleInformation(people) { }
+function peopleInformation(people) {
+    let ageSum = 0;
+    let heightSum = 0;
+    let youngerAge = 300;
+    let tallerMeasure = 0;
+    let persons = 0;
+
+    let youngerPerson = null;
+    let tallerPerson = null;
+
+    people.forEach( person => {
+        ageSum += person.age;
+        heightSum += person.height;
+        if (person.age < youngerAge) {
+            youngerPerson = person;
+            youngerAge = person.age;
+        }
+        if(person.height > tallerMeasure) {
+            tallerPerson = person;
+            tallerMeasure = person.height;
+        }
+        persons += 1;
+    })
+
+    const peopleResponse = {
+        'ageProm': parseFloat((ageSum/persons).toFixed(0)),
+        'heightProm': parseFloat((heightSum/persons).toFixed(0)),
+        'youngerPerson': youngerPerson,
+        'tallerPerson': tallerPerson
+    }
+    return peopleResponse;
+}
 
 module.exports = peopleInformation;

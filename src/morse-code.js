@@ -76,17 +76,17 @@ function morseCode(message, convertTo) {
 
         for (let char of msg) {
             converted.push(toMorse[char]);
-            converted.push(' ')
+            converted.push(' ');
         }
-        converted.pop()
+        converted.pop();
 
     } else {
 
-        morseLetter = []
-        skipBlankSpace = false;
+        let morseLetter = [];
+        let skipBlankSpace = false;
         for (let char of msg) {
             if (char !== ' '){
-                morseLetter.push(char)
+                morseLetter.push(char);
             } else {
                 if (morseLetter.join('') === '' && !skipBlankSpace) {
                     converted.push(' ');
@@ -95,7 +95,7 @@ function morseCode(message, convertTo) {
                     converted.push(toEnglish[morseLetter.join('')]);
                     skipBlankSpace = false;
                 }
-                morseLetter = []
+                morseLetter = [];
             }
         }
         converted.push(toEnglish[morseLetter.join('')]);        
