@@ -41,16 +41,16 @@
 
 function callsCost(calls) { 
 
-    feeMinutes = 3;
-    fee = {
+    const feeMinutes = 3;
+    const fee = {
         'International': [7.56, 3.03],
         'National': [1.20, 0.48],
         'Local': [0.2, 0.2]
     };
 
-    totalCalls = 0;
-    total = 0;
-    callsDetails = [];
+    let totalCalls = 0;
+    let total = 0;
+    let callsDetails = [];
 
     calls.forEach(call => {
 
@@ -58,8 +58,8 @@ function callsCost(calls) {
 
             totalCalls += 1;
 
-            additionalMinutes = call.duration - feeMinutes;
-            callCost = 0;
+            const additionalMinutes = call.duration - feeMinutes;
+            let callCost = 0;
             if (additionalMinutes > 0) {
                 callCost += fee[call.type][0]*feeMinutes;
                 callCost += fee[call.type][1]*additionalMinutes;
@@ -78,7 +78,7 @@ function callsCost(calls) {
         }
     })
 
-    response = {
+    const response = {
         'totalCalls': totalCalls,
         'total': parseFloat(total.toFixed(2)),
         'callsDetails': callsDetails
