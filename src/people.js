@@ -27,23 +27,38 @@
 */
 
 function peopleInformation(people) {
-    let ageSum = 0;
-    let heightSum = 0;
+    // let ageSum = 0;
+    // let heightSum = 0;
 
-    let youngerPerson = people[0];
-    let tallerPerson = people[0];
+    // let youngerPerson = people[0];
+    // let tallerPerson = people[0];
 
-    people.forEach( person => {
-        ageSum += person.age;
-        heightSum += person.height;
-        if (person.age < youngerPerson.age) {
-            youngerPerson = person;
-        }
-        if(person.height > tallerPerson.height) {
-            tallerPerson = person;
-        }
-    })
+    // people.forEach( person => {
+    //     ageSum += person.age;
+    //     heightSum += person.height;
+    //     if (person.age < youngerPerson.age) {
+    //         youngerPerson = person;
+    //     }
+    //     if(person.height > tallerPerson.height) {
+    //         tallerPerson = person;
+    //     }
+    // })
 
+    const [ageSum, heightSum, youngerPerson, tallerPerson] = people.reduce(
+        (measures, person) => {
+            measures[0] += person.age;
+            measures[1] += person.height;
+            if (person.age < measures[2].age) {
+                measures[2] = person;
+            }
+            if (person.height > measures[3].height) {
+                measures[3] = person;
+            }
+            return measures;
+        },
+        [0, 0, people[0], people[0]]
+    );
+    
     const peopleResponse = {
         ageProm: parseFloat((ageSum/people.length).toFixed(0)),
         heightProm: parseFloat((heightSum/people.length).toFixed(0)),
