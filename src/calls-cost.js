@@ -43,9 +43,9 @@ function callsCost(calls) {
 
     const feeMinutes = 3;
     const fee = {
-        'International': [7.56, 3.03],
-        'National': [1.20, 0.48],
-        'Local': [0.2, 0.2]
+        International: [7.56, 3.03],
+        National: [1.20, 0.48],
+        Local: [0.2, 0.2]
     };
 
     const [totalCalls, totalCost, callsDetails] = calls.reduce(
