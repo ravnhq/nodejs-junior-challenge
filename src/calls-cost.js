@@ -48,36 +48,57 @@ function callsCost(calls) {
         'Local': [0.2, 0.2]
     };
 
-    let totalCalls = 0;
-    let total = 0;
-    const callsDetails = [];
+    // let totalCalls = 0;
+    // let total = 0;
+    // const callsDetails = [];
 
-    calls.forEach(call => {
+    // calls.forEach(call => {
 
-        if (fee[call.type]) {
+    //     if (fee[call.type]) {
 
-            totalCalls += 1;
+    //         totalCalls += 1;
 
-            const additionalMinutes = Math.max(call.duration - feeMinutes, 0);
+    //         const additionalMinutes = Math.max(call.duration - feeMinutes, 0);
             
-            const callCost = Math.min(call.duration, feeMinutes) * fee[call.type][0] + additionalMinutes * fee[call.type][1];
-            total += callCost;
+    //         const callCost = Math.min(call.duration, feeMinutes) * fee[call.type][0] + additionalMinutes * fee[call.type][1];
+    //         total += callCost;
 
-            callsDetails.push({
-                identifier: call.identifier,
-                type: call.type,
-                duration: call.duration,
-                callCost: parseFloat(callCost.toFixed(2))
-            })
-        }
-    })
+    //         callsDetails.push({
+    //             identifier: call.identifier,
+    //             type: call.type,
+    //             duration: call.duration,
+    //             callCost: parseFloat(callCost.toFixed(2))
+    //         })
+    //     }
+    // })
+    const [totalCalls, totalCost, callsDetails] = calls.reduce(
+        (callsData, call) => {
+            if (fee[call.type]) {
+
+                callsData[0] += 1;
+
+                const additionalMinutes = Math.max(call.duration - feeMinutes, 0);
+                const callCost = Math.min(call.duration, feeMinutes) * fee[call.type][0] + additionalMinutes * fee[call.type][1];
+                callsData[1] += callCost;
+
+                callsData[2].push({
+                    identifier: call.identifier,
+                    type: call.type,
+                    duration: call.duration,
+                    callCost: parseFloat(callCost.toFixed(2))
+                })
+            }
+            return callsData;
+        },
+        [0, 0, []]
+    );
 
     const response = {
         totalCalls,
-        total: parseFloat(total.toFixed(2)),
+        total: parseFloat(totalCost.toFixed(2)),
         callsDetails
     }
-    return response
+    return response;
 }
 
 module.exports = callsCost;
