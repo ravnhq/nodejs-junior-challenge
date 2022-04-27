@@ -27,22 +27,6 @@
 */
 
 function peopleInformation(people) {
-    // let ageSum = 0;
-    // let heightSum = 0;
-
-    // let youngerPerson = people[0];
-    // let tallerPerson = people[0];
-
-    // people.forEach( person => {
-    //     ageSum += person.age;
-    //     heightSum += person.height;
-    //     if (person.age < youngerPerson.age) {
-    //         youngerPerson = person;
-    //     }
-    //     if(person.height > tallerPerson.height) {
-    //         tallerPerson = person;
-    //     }
-    // })
 
     const [ageSum, heightSum, youngerPerson, tallerPerson] = people.reduce(
         (measures, person) => {

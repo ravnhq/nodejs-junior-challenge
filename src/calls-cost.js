@@ -48,29 +48,6 @@ function callsCost(calls) {
         'Local': [0.2, 0.2]
     };
 
-    // let totalCalls = 0;
-    // let total = 0;
-    // const callsDetails = [];
-
-    // calls.forEach(call => {
-
-    //     if (fee[call.type]) {
-
-    //         totalCalls += 1;
-
-    //         const additionalMinutes = Math.max(call.duration - feeMinutes, 0);
-            
-    //         const callCost = Math.min(call.duration, feeMinutes) * fee[call.type][0] + additionalMinutes * fee[call.type][1];
-    //         total += callCost;
-
-    //         callsDetails.push({
-    //             identifier: call.identifier,
-    //             type: call.type,
-    //             duration: call.duration,
-    //             callCost: parseFloat(callCost.toFixed(2))
-    //         })
-    //     }
-    // })
     const [totalCalls, totalCost, callsDetails] = calls.reduce(
         (callsData, call) => {
             if (fee[call.type]) {
