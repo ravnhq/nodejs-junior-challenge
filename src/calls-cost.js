@@ -41,33 +41,35 @@
 
 function callsCost(calls) { 
 
-    const feeMinutes = 3;
-    const fee = {
-        International: [7.56, 3.03],
-        National: [1.20, 0.48],
-        Local: [0.2, 0.2]
+    const firstMinutes = 3;
+    const minutesFee = {
+        International: {first: 7.56, additional: 3.03},
+        National: {first: 1.20, additional: 0.48},
+        Local: {first: 0.2, additional: 0.2}
     };
 
-    const [totalCalls, totalCost, callsDetails] = calls.reduce(
+    const {totalCalls, totalCost, callsDetails} = calls.reduce(
+
         (callsData, call) => {
-            if (fee[call.type]) {
+            if (minutesFee[call.type]) {
+                callsData.totalCalls += 1;
 
-                callsData[0] += 1;
+                const additionalMinutes = Math.max(call.duration - firstMinutes, 0);
 
-                const additionalMinutes = Math.max(call.duration - feeMinutes, 0);
-                const callCost = Math.min(call.duration, feeMinutes) * fee[call.type][0] + additionalMinutes * fee[call.type][1];
-                callsData[1] += callCost;
+                callsData.totalCost += 
+                    Math.min(call.duration, firstMinutes) * minutesFee[call.type].first + additionalMinutes * minutesFee[call.type].additional;
 
-                callsData[2].push({
+                callsData.callsDetails.push({
                     identifier: call.identifier,
                     type: call.type,
                     duration: call.duration,
-                    callCost: parseFloat(callCost.toFixed(2))
+                    callCost: parseFloat(callsData.totalCost.toFixed(2))
                 })
             }
             return callsData;
         },
-        [0, 0, []]
+        {totalCalls: 0, totalCost: 0, callsDetails: []}
+        
     );
 
     const response = {
