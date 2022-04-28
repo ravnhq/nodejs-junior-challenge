@@ -28,19 +28,21 @@
 
 function peopleInformation(people) {
 
-    const [ageSum, heightSum, youngerPerson, tallerPerson] = people.reduce(
+    const {ageSum, heightSum, youngerPerson, tallerPerson} = people.reduce(
+
         (measures, person) => {
-            measures[0] += person.age;
-            measures[1] += person.height;
-            if (person.age < measures[2].age) {
-                measures[2] = person;
+            measures.ageSum += person.age;
+            measures.heightSum += person.height;
+            if (person.age < measures.youngerPerson.age) {
+                measures.youngerPerson = person;
             }
-            if (person.height > measures[3].height) {
-                measures[3] = person;
+            if (person.height > measures.tallerPerson.height) {
+                measures.tallerPerson = person;
             }
             return measures;
         },
-        [0, 0, people[0], people[0]]
+        {ageSum: 0, heightSum: 0, youngerPerson: people[0], tallerPerson: people[0]}
+        
     );
     
     const peopleResponse = {
