@@ -26,23 +26,35 @@
  * @returns {PeopleResponse}  - Processed information
 */
 
+
+function calculateAgeProm(people) {
+    const totalAge = people.reduce((sum, person) => sum + person.age, 0);
+    return Math.round(totalAge / people.length);
+}
+
+function calculateHeightProm(people) {
+    const totalHeight = people.reduce((sum,person) => sum + person.height, 0);
+    return Math.round(totalHeight / people.length);
+}
+
+function findYoungerPerson(people) {
+    return people.reduce((youngest, person) => person.age < youngest.age ? person : youngest, people[0]);
+}
+
+function findTallerPerson(people) {
+    return people.reduce((tallest, person) => person.height > tallest.height ? person : tallest, people[0]);
+}
+
 function peopleInformation(people) { 
 
-    const totalAge = people.reduce((sum,person) => sum + person.age, 0);
-    const totalHeight = people.reduce((sum,person) => sum + person.height, 0);
+    PeopleResponse = {
+        "ageProm" : calculateAgeProm(people),
+        "heightProm" : calculateHeightProm(people),
+        "youngerPerson" : findYoungerPerson(people),
+        "tallerPerson" : findTallerPerson(people)
+    }
 
-    const ageProm = Math.round(totalAge / people.length);
-    const heightProm = Math.round(totalHeight / people.length);
-
-    const youngerPerson = people.reduce((youngest,person) => person.age < youngest.age ? person : youngest, people[0]);
-    const tallerPerson = people.reduce((tallest,person) => person.height > tallest.height ? person : tallest, people[0]);
-
-    return {
-        ageProm,
-        heightProm,
-        youngerPerson,
-        tallerPerson
-    };
+    return PeopleResponse;
     
 }
 
