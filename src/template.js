@@ -19,6 +19,23 @@
  * @returns {string}  - Formatted string covering the template
 */
 
-function template(model, character, message) { }
+function template(model, character, message) {
+    
+    if(!(model).includes(character) || message == ''){
+        return 'Invalid parameters';
+    }
+
+    let messageArray = message.split('');
+
+    let answer = model.split('').map((char) => {
+        if(char === character && messageArray.length > 0){
+            return messageArray.shift();
+        }else{
+            return char;
+        }
+    }).join('');
+
+    return answer;
+ }
 
 module.exports = template;
