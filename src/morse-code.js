@@ -56,14 +56,22 @@ const morse = {
 }
 const english = Object.fromEntries(Object.entries(morse).map(([letter, code]) => [code, letter]));
 
-function morseCode(message, convertTo) {
+function convertToMorse(message) {
+    return message.split('').map(letter => morse[letter.toUpperCase()] || '').join(' ');
+}
 
+function convertToEnglish(message) {
+    return message.split(' ').map(code => english[code] || '').join('').replaceAll('**', ' ');
+}
+
+function morseCode(message, convertTo) {
     if (convertTo === 'morse') {
-        return message.split('').map(letter => morse[letter.toUpperCase()] || '').join(' ');
+        return convertToMorse(message);
     } else if (convertTo === 'english') {
-        return message.split(' ').map(code => english[code] || '').join('').replaceAll('**', ' ');
+        return convertToEnglish(message);
+    } else {
+        throw new Error(`Invalid conversion type: ${convertTo}`);
     }
-    
- }
+}
 
 module.exports = morseCode;
