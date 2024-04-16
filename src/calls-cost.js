@@ -41,7 +41,6 @@
 
 function callsCost(calls) { 
 
-    totalCalls = 0;
 
     const callCosts = {
         'International': duration => duration > 3 ? 22.68 + (duration - 3) * 3.03 : duration * 7.56,
@@ -49,23 +48,23 @@ function callsCost(calls) {
         'Local': duration => duration * 0.2
     };
 
-    const ProcessedCall = calls
+    let totalCost = 0;
+    const processedCall = calls
         .filter(call => call.type in callCosts)
         .map(call => {
             const calculateCost = callCosts[call.type];
             const callCost = calculateCost(call.duration);
+            totalCost += callCost;
             return {
                 ...call,
                 callCost
             };
     });
 
-    const total = parseFloat(ProcessedCall.reduce((sum, call) => sum + call.callCost, 0).toFixed(2));
-
     const callsResponse = {
-        totalCalls: ProcessedCall.length,
-        total: total,
-        callsDetails: ProcessedCall
+        totalCalls: processedCall.length,
+        total: parseFloat(totalCost.toFixed(2)),
+        callsDetails: processedCall
     };
 
     return callsResponse;
