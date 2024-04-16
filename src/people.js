@@ -26,6 +26,24 @@
  * @returns {PeopleResponse}  - Processed information
 */
 
-function peopleInformation(people) { }
+function peopleInformation(people) { 
+
+    const totalAge = people.reduce((sum,person) => sum + person.age, 0);
+    const totalHeight = people.reduce((sum,person) => sum + person.height, 0);
+
+    const ageProm = Math.round(totalAge / people.length);
+    const heightProm = Math.round(totalHeight / people.length);
+
+    const youngerPerson = people.reduce((youngest,person) => person.age < youngest.age ? person : youngest, people[0]);
+    const tallerPerson = people.reduce((tallest,person) => person.height > tallest.height ? person : tallest, people[0]);
+
+    return {
+        ageProm,
+        heightProm,
+        youngerPerson,
+        tallerPerson
+    };
+    
+}
 
 module.exports = peopleInformation;
