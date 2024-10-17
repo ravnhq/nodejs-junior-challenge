@@ -1,4 +1,4 @@
-const fibonacciSerie = [
+export const fibonacciSerie = [
   0,
   1,
   1,
@@ -30,5 +30,3 @@ const fibonacciSerie = [
   317811,
   514229,
 ];
-
-module.exports = { fibonacciSerie };
