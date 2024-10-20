@@ -8,8 +8,8 @@ describe("people challenge", () => {
     const result = peopleInformation(people);
 
     expect(result).toMatchObject({
-      ageProm: 50,
-      heightProm: 176,
+      averageAge: 50,
+      averageHeight: 176,
       youngerPerson: people[2],
       tallerPerson: people[8],
     });

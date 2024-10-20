@@ -7,8 +7,8 @@ interface Person {
 }
 
 interface PeopleResponse {
-  ageProm: number;
-  heightProm: number;
+  averageAge: number;
+  averageHeight: number;
   youngerPerson: Person;
   tallerPerson: Person;
 }
